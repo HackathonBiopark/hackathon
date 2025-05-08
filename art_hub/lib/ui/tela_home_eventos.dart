@@ -1,4 +1,5 @@
 import 'package:alugaix_app/ui/tela_adicao_evento.dart';
+import 'package:alugaix_app/ui/tela_evento.dart';
 import 'package:flutter/material.dart';
 
 class TelaHomeEventos extends StatefulWidget {
@@ -14,14 +15,6 @@ class _TelaHomeEventosState extends State<TelaHomeEventos> {
       'titulo': 'Conferência Data Minds 2025',
       'banner': 'assets/img/fotoTecnologia.jpg'
     },
-    {
-      'titulo': 'Feira de Tecnologia IFPR',
-      'banner': 'assets/img/fotoTecnologia.jpg'
-    },
-    {'titulo': 'Semana Acadêmica', 'banner': 'assets/img/fotoTecnologia.jpg'},
-    {'titulo': 'Workshop de IA', 'banner': 'assets/img/fotoTecnologia.jpg'},
-    {'titulo': 'Mostra de Projetos', 'banner': 'assets/img/fotoTecnologia.jpg'},
-    {'titulo': 'Hackathon IFPR', 'banner': 'assets/img/fotoTecnologia.jpg'},
   ];
 
   @override
@@ -49,32 +42,44 @@ class _TelaHomeEventosState extends State<TelaHomeEventos> {
           ),
           itemBuilder: (context, index) {
             final evento = eventos[index];
-            return Card(
-              clipBehavior: Clip.antiAlias,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16)),
-              elevation: 4,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Image.asset(
-                      evento['banner']!,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const TelaEvento(
+                            titulo: 'Conferência Data Minds 2025',
+                            banner: 'assets/img/fotoTecnologia.jpg',
+                          )),
+                );
+              },
+              child: Card(
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16)),
+                elevation: 4,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Image.asset(
+                        evento['banner']!,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Text(
-                      evento['titulo']!,
-                      style: const TextStyle(
-                          fontSize: 14, fontWeight: FontWeight.w600),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Text(
+                        evento['titulo']!,
+                        style: const TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w600),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           },

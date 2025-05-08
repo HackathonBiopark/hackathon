@@ -1,0 +1,42 @@
+[
+  {
+    "nome": "Dr. João Silva",
+    "areaTematica": "Inteligência Artificial",
+    "email": "joao.silva@educa.com"
+  },
+  {
+    "nome": "Prof. Maria Fernandes",
+    "areaTematica": "Educação",
+    "email": "maria.fernandes@inovatech.com"
+  },
+  {
+    "nome": "Dr. Carlos Souza",
+    "areaTematica": "Tecnologia",
+    "email": "carlos.souza@gestec.com"
+  },
+  {
+    "nome": "Dr. Ana Ribeiro",
+    "areaTematica": "Transformação Digital",
+    "email": "ana.ribeiro@infotech.com"
+  },
+  {
+    "nome": "Prof. Paulo Almeida",
+    "areaTematica": "Inovação",
+    "email": "paulo.almeida@edu.com"
+  },
+  {
+    "nome": "Dr. Rafael Mendes",
+    "areaTematica": "Gestão",
+    "email": "rafael.mendes@gestaoeventos.com"
+  },
+  {
+    "nome": "Prof. Lúcia Santos",
+    "areaTematica": "Eventos Acadêmicos",
+    "email": "lucia.santos@eventosacad.com"
+  },
+  {
+    "nome": "Eng. Roberto Carvalho",
+    "areaTematica": "Automação",
+    "email": "roberto.carvalho@automatec.com"
+  }
+]

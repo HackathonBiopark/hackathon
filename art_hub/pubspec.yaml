@@ -33,6 +33,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/img/
+    - lib/conteudo/
 
   # assets:
   #   - assets/images/DAE0C3C3-7434-4E45-BF4E-30E1A55ACC59.png

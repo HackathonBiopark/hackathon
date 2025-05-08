@@ -1,0 +1,26 @@
+[
+  {
+    "titulo": "Aplicações da IA na Educação: Desafios e Oportunidades",
+    "autores": "Fulano de Tal, Sicrano da Silva",
+    "resumo": "Este artigo aborda as principais aplicações da inteligência artificial no contexto educacional...",
+    "palavrasChave": ["Inteligência Artificial", "Educação", "Tecnologia"],
+    "areaTematica": "Tecnologia Educacional",
+    "arquivo": "artigo1.pdf"
+  },
+  {
+    "titulo": "O Impacto da Transformação Digital nas Instituições de Ensino",
+    "autores": "Beltrano Almeida",
+    "resumo": "A transformação digital está mudando a forma como as instituições de ensino operam...",
+    "palavrasChave": ["Transformação Digital", "Educação", "Inovação"],
+    "areaTematica": "Inovação Tecnológica",
+    "arquivo": "artigo2.pdf"
+  },
+  {
+    "titulo": "Gestão de Eventos Acadêmicos com Tecnologia de Automação",
+    "autores": "Ciclano Pereira, Fulano de Tal",
+    "resumo": "O uso de tecnologias de automação para gestão eficiente de eventos acadêmicos...",
+    "palavrasChave": ["Gestão", "Eventos Acadêmicos", "Automação"],
+    "areaTematica": "Gestão e Tecnologia",
+    "arquivo": "artigo3.pdf"
+  }
+]
