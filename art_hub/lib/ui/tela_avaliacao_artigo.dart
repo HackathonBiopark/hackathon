@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:valides_app/ui/gemini.dart';
 
 class TelaAvaliacaoArtigo extends StatefulWidget {
   final String titulo;
@@ -12,18 +13,21 @@ class TelaAvaliacaoArtigo extends StatefulWidget {
 
 class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
   List<Map<String, dynamic>> checklistPontos = [
-    {'ponto': 'Ponto 1', 'peso': 1, 'checked': false},
-    {'ponto': 'Ponto 2', 'peso': 2, 'checked': false},
-    {'ponto': 'Ponto 3', 'peso': 3, 'checked': false},
+    {'ponto': 'Erros de escrita', 'peso': 2, 'checked': false},
+    {'ponto': 'Desvio do padrão ABNT', 'peso': 2, 'checked': false},
+    {'ponto': 'Falta de referências', 'peso': 3, 'checked': false},
   ];
 
   bool isPdfVisible = false;
   String urlPDF =
       '/Users/davispecia/Documents/hackathon-main/art_hub/assets/img/FATURA AGATA 1701 A 1802 (1).pdf';
 
+  final TextEditingController observacaoController = TextEditingController();
+  String? geminiResponse;
+
   void _adicionarOuEditarPonto([int? index]) {
-    final TextEditingController pontoController = TextEditingController();
-    final TextEditingController pesoController = TextEditingController();
+    final pontoController = TextEditingController();
+    final pesoController = TextEditingController();
 
     if (index != null) {
       pontoController.text = checklistPontos[index]['ponto'];
@@ -32,7 +36,7 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
 
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (_) => AlertDialog(
         title: Text(index == null ? 'Adicionar Ponto' : 'Editar Ponto'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -56,15 +60,15 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
           TextButton(
             onPressed: () {
               setState(() {
-                final novoPonto = {
+                final novo = {
                   'ponto': pontoController.text,
                   'peso': int.tryParse(pesoController.text) ?? 1,
                   'checked': false,
                 };
                 if (index == null) {
-                  checklistPontos.add(novoPonto);
+                  checklistPontos.add(novo);
                 } else {
-                  checklistPontos[index] = novoPonto;
+                  checklistPontos[index] = novo;
                 }
               });
               Navigator.pop(context);
@@ -77,9 +81,19 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
   }
 
   void _alternarVisualizacaoPDF() {
-    setState(() {
-      isPdfVisible = !isPdfVisible;
-    });
+    setState(() => isPdfVisible = !isPdfVisible);
+  }
+
+  Future<void> _enviarParaGemini() async {
+    final errosSelecionados = checklistPontos
+        .where((e) => e['checked'] == true)
+        .map((e) => e['ponto'].toString())
+        .toList();
+
+    setState(() => geminiResponse = 'Aguarde, gerando resposta...');
+    final resposta =
+        await fazerTextoGemini(errosSelecionados, observacaoController.text);
+    setState(() => geminiResponse = resposta ?? 'Erro ao obter resposta');
   }
 
   Drawer _buildDrawer(BuildContext context) {
@@ -92,17 +106,13 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
             leading: const Icon(Icons.home_rounded, color: Colors.white),
             title: const Text('Eventos disponíveis',
                 style: TextStyle(color: Colors.white)),
-            onTap: () {
-              Navigator.pop(context);
-            },
+            onTap: () => Navigator.pop(context),
           ),
           ListTile(
             leading: const Icon(Icons.article_rounded, color: Colors.white),
             title:
                 const Text('Submissões', style: TextStyle(color: Colors.white)),
-            onTap: () {
-              Navigator.pop(context);
-            },
+            onTap: () => Navigator.pop(context),
           ),
         ],
       ),
@@ -119,9 +129,7 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
         ),
         actions: [
           IconButton(
@@ -133,87 +141,120 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
       drawer: _buildDrawer(context),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Ficha de avaliação:',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            const Card(
-              margin: EdgeInsets.symmetric(vertical: 8),
-              child: ListTile(
-                title: Text('Título do artigo'),
-                subtitle: Text('Nome do autor indisponível'),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Center(
+                child: Text('Avaliar Artigo',
+                    style:
+                        TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
               ),
-            ),
-            Card(
-              margin: const EdgeInsets.symmetric(vertical: 8),
-              child: ListTile(
-                title: Text(isPdfVisible ? 'Fechar PDF' : 'Abrir PDF'),
-                onTap: _alternarVisualizacaoPDF,
-                subtitle: const Text(
-                  'O arquivo não possui metadados',
-                  style: TextStyle(fontSize: 14),
+              const SizedBox(height: 16),
+              const Card(
+                margin: EdgeInsets.symmetric(vertical: 8),
+                child: ListTile(
+                  title: Text('Título do artigo'),
+                  subtitle: Text('Nome do autor'),
                 ),
               ),
-            ),
-            if (isPdfVisible)
-              Expanded(
-                child: SfPdfViewer.network(urlPDF),
+              Card(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                child: ListTile(
+                  title: Text(isPdfVisible ? 'Fechar PDF' : 'Abrir PDF'),
+                  onTap: _alternarVisualizacaoPDF,
+                ),
               ),
-            Card(
-              margin: const EdgeInsets.symmetric(vertical: 8),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Checklist padrão',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 8),
-                    ...checklistPontos.asMap().entries.map((entry) {
-                      int index = entry.key;
-                      var ponto = entry.value;
-                      return CheckboxListTile(
-                        title:
-                            Text('${ponto['ponto']} (Peso: ${ponto['peso']})'),
-                        value: ponto['checked'],
-                        onChanged: (bool? value) {
-                          setState(() {
-                            checklistPontos[index]['checked'] = value ?? false;
-                          });
-                        },
-                        secondary: IconButton(
-                          icon: const Icon(Icons.edit, color: Colors.grey),
-                          onPressed: () => _adicionarOuEditarPonto(index),
+              if (isPdfVisible)
+                Expanded(
+                  child: SfPdfViewer.network(urlPDF),
+                ),
+              // OBSERVAÇÃO E GERAÇÃO DE SUGESTÕES
+
+              Card(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Checklist padrão',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
+                      const SizedBox(height: 8),
+                      ...checklistPontos.asMap().entries.map((entry) {
+                        final index = entry.key;
+                        final ponto = entry.value;
+                        return CheckboxListTile(
+                          title: Text(
+                              '${ponto['ponto']} (Peso: ${ponto['peso']})'),
+                          value: ponto['checked'],
+                          onChanged: (value) {
+                            setState(() => checklistPontos[index]['checked'] =
+                                value ?? false);
+                          },
+                          secondary: IconButton(
+                            icon: const Icon(Icons.edit, color: Colors.grey),
+                            onPressed: () => _adicionarOuEditarPonto(index),
+                          ),
+                        );
+                      }).toList(),
+                      const SizedBox(height: 8),
+                      ElevatedButton(
+                        onPressed: () => _adicionarOuEditarPonto(),
+                        child: const Text('Adicionar Novo Ponto'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Card(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Observação',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
+                      const SizedBox(height: 8),
+                      TextField(
+                        controller: observacaoController,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Descreva a situação',
                         ),
-                      );
-                    }).toList(),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: () => _adicionarOuEditarPonto(),
-                      child: const Text('Adicionar Novo Ponto'),
-                    ),
-                  ],
+                        maxLines: 3,
+                      ),
+                      const SizedBox(height: 8),
+                      ElevatedButton(
+                        onPressed: _enviarParaGemini,
+                        child: const Text('Gerar Sugestões'),
+                      ),
+                      if (geminiResponse != null) ...[
+                        const SizedBox(height: 12),
+                        const Text('Resposta do Gemini:',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 4),
+                        Text(geminiResponse!),
+                      ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Card(
-              margin: const EdgeInsets.symmetric(vertical: 8),
-              child: ListTile(
-                title: const Text('Nota:'),
-                trailing: const Icon(Icons.edit, color: Colors.grey),
-                onTap: () {
-                  // Ação para editar nota
-                },
+              Card(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                child: ListTile(
+                  title: const Text('Nota:'),
+                  trailing: const Icon(Icons.edit, color: Colors.grey),
+                  onTap: () {
+                    // Ação para editar nota
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
