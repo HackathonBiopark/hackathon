@@ -66,15 +66,6 @@ class _TelaEventoState extends State<TelaEvento> {
                   TextStyle(color: Colors.white70, fontWeight: FontWeight.bold),
             ),
           ),
-          const ListTile(
-            dense: true,
-            title: Text(
-              'Conferência Data Minds 2025',
-              style: TextStyle(color: Colors.white, fontSize: 13),
-            ),
-            leading: Icon(Icons.event_note, color: Colors.white70, size: 20),
-            contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
-          ),
         ],
       ),
     );
@@ -129,6 +120,32 @@ class _TelaEventoState extends State<TelaEvento> {
                     margin: const EdgeInsets.symmetric(vertical: 4),
                     child: ListTile(
                       title: Text(titulosArtigos[index]),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.check, color: Colors.green),
+                            onPressed: () {
+                              _atualizarStatus(index, 'Aprovado');
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.close, color: Colors.red),
+                            onPressed: () {
+                              _atualizarStatus(index, 'Recusado');
+                            },
+                          ),
+                        ],
+                      ),
+                      subtitle: Text(
+                        statusArtigos[index],
+                        style: TextStyle(
+                          color: statusArtigos[index] == 'Aprovado'
+                              ? Colors.green
+                              : Colors.red,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -143,15 +160,6 @@ class _TelaEventoState extends State<TelaEvento> {
                           ),
                         );
                       },
-                      subtitle: Text(
-                        statusArtigos[index],
-                        style: TextStyle(
-                          color: statusArtigos[index] == 'Aceito'
-                              ? Colors.green
-                              : Colors.red,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
                     ),
                   );
                 },

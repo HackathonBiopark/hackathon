@@ -1,4 +1,3 @@
-import 'package:alugaix_app/ui/tela_submissao_autor.dart';
 import 'package:alugaix_app/ui/tela_login.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: const TelaSubmissaoAutor(),
+      home: const TelaLogin(),
     );
   }
 }
