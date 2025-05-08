@@ -39,8 +39,26 @@ class _TelaHomeAdministradorState extends State<TelaHomeAdministrador> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => const TelaEventoCoordenador(
-                        titulo: '',
+                        titulo: 'Inscrições abertas',
                         banner: '../assets/img/fotoTecnologia2.jpg',
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(width: 20),
+            Expanded(
+              child: _buildCardEvento(
+                imagem: '../assets/img/dash.jpg',
+                titulo: 'Dashbord dos avaliadores',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TelaAnaisEventos(
+                        titulo: 'Dashbord dos avaliadores',
+                        banner: "../assets/img/dash.jpg",
                       ),
                     ),
                   );
