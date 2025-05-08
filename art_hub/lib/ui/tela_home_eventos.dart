@@ -2,6 +2,7 @@ import 'package:valides_app/ui/tela_adicao_evento.dart';
 import 'package:valides_app/ui/tela_evento_coordenador.dart';
 import 'package:valides_app/ui/tela_evento_autor.dart'; // Nova tela de autor
 import 'package:valides_app/ui/tela_login.dart';
+
 import 'package:flutter/material.dart';
 import '../utils/user_preferences.dart'; // Import para pegar o tipo de usuário
 

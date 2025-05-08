@@ -1,6 +1,8 @@
 import 'dart:math';
+
 import 'package:valides_app/ui/tela_adicao_evento.dart';
 import 'package:valides_app/ui/tela_home_eventos.dart';
+
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
