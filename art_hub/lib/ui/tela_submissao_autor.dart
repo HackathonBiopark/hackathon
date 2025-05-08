@@ -41,7 +41,10 @@ class _TelaSubmissaoAutorState extends State<TelaSubmissaoAutor> {
             const Text('Nova submissão', style: TextStyle(color: Colors.white)),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
       ),

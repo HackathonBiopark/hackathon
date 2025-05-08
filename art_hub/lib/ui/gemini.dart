@@ -9,7 +9,8 @@ Future<String?> fazerTextoGemini(List checkListErros, String observacao) async {
   for (var erro in checkListErros) {
     buffer.writeln('- $erro');
   }
-  buffer.writeln('\nCom base nisso, sugira correções e recomendações claras.');
+  buffer.writeln(
+      '\nCom base nisso, sugira correções e recomendações claras. E sugira uma nota de 0 a 10 que deveria ser dada ao aluno.');
 
   try {
     final response = await Gemini.instance.prompt(

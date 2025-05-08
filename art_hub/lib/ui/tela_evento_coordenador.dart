@@ -78,7 +78,7 @@ class _TelaEventoState extends State<TelaEventoCoordenador> {
             ),
             const SizedBox(height: 8),
             const Text(
-              'Artigos enviados:',
+              'Artigos Recebidos:',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,

@@ -1,13 +1,8 @@
 import 'package:flutter_gemini/flutter_gemini.dart';
-import 'package:valides_app/ui/eventos_submissoes.dart';
-import 'package:valides_app/ui/gemini.dart';
-
 import 'package:flutter/material.dart';
-import 'package:valides_app/ui/tela_anais_evento.dart';
+import 'package:valides_app/ui/tela_eventos_instituicao.dart';
 import 'package:valides_app/ui/tela_home_administrador.dart';
 import 'package:valides_app/ui/tela_home_autor.dart';
-import 'package:valides_app/ui/tela_home_avaliador.dart';
-import 'package:valides_app/ui/tela_login.dart';
 
 void main() {
   Gemini.init(
@@ -28,7 +23,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blueGrey,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      home: const TelaLogin(),
+      home: const TelaHomeAdministrador(),
     );
   }
 }
