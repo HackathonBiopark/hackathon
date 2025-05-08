@@ -5,6 +5,8 @@ import 'package:valides_app/ui/tela_lista_artigos.dart';
 import 'package:valides_app/ui/tela_submissao_autor.dart';
 import 'package:flutter/material.dart';
 import '../utils/user_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 void main() {
   runApp(const TelaLogin());
@@ -31,31 +33,52 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  String? _selectedRole;
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  final List<String> _roles = ['Administrador', 'Autor', 'Avaliador'];
-
-  void _login() async {
+  Future<void> _login() async {
     if (_formKey.currentState!.validate()) {
-      // Salvar o tipo de usuário globalmente
-      await UserPreferences.saveUserType(_selectedRole!);
+      try {
+        final response = await http.post(
+          Uri.parse('http://localhost:5050/api/login'),
+          headers: {'Content-Type': 'application/json'},
+          body: json.encode({
+            "email": _emailController.text,
+            "password": _passwordController.text,
+          }),
+        );
 
-      // Navegar para a tela correspondente
-      if (_selectedRole == 'Administrador') {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => TelaHome()),
-        );
-      } else if (_selectedRole == 'Autor') {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => TelaHomeAutor()),
-        );
-      } else if (_selectedRole == 'Avaliador') {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => TelaHomeAvaliador()),
+        if (response.statusCode == 200) {
+          final responseData = json.decode(response.body);
+          String role = responseData['role'];
+
+          // Navegar diretamente para a tela correspondente com base no tipo de usuário retornado
+          if (role == 'Administrador') {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => TelaHome()),
+            );
+          } else if (role == 'Autor') {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => TelaHomeAutor()),
+            );
+          } else if (role == 'Avaliador') {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => TelaHomeAvaliador()),
+            );
+          }
+        } else {
+          // Mensagem de erro para login inválido
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Erro: ${response.body}')),
+          );
+        }
+      } catch (e) {
+        // Tratamento de erro de conexão ou servidor
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erro ao conectar ao servidor: $e')),
         );
       }
     }
@@ -84,31 +107,28 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Image.asset(
-                    '../../assets/img/logo_fundo_claro.png',
+                    'assets/img/logo_fundo_claro.png',
                     height: 200,
                     width: 200,
                     fit: BoxFit.contain,
                   ),
                   const SizedBox(height: 24),
-                  DropdownButtonFormField<String>(
+                  TextFormField(
+                    controller: _emailController,
                     decoration: const InputDecoration(
-                      labelText: 'Nome',
+                      labelText: 'E-mail',
                       border: OutlineInputBorder(),
                     ),
-                    value: _selectedRole,
-                    items: _roles.map((role) {
-                      return DropdownMenuItem(
-                        value: role,
-                        child: Text(role),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedRole = value;
-                      });
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, insira seu e-mail';
+                      }
+                      // Validação simples de e-mail
+                      if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                        return 'E-mail inválido';
+                      }
+                      return null;
                     },
-                    validator: (value) =>
-                        value == null ? 'Selecione uma função' : null,
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
@@ -118,8 +138,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       labelText: 'Senha',
                       border: OutlineInputBorder(),
                     ),
-                    validator: (value) =>
-                        value == 'admin' ? null : 'Senha incorreta',
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, insira sua senha';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(height: 24),
                   Padding(

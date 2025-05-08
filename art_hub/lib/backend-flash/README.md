@@ -15,7 +15,7 @@ cd seuprojeto
 ### 2. Crie e ative um ambiente virtual
 ```bash
 python -m venv venv
-source venv/bin/activate  # Linux/macOS
+  # Linux/macOS
 venv\Scripts\activate   # Windows
 ```
 
