@@ -30,7 +30,7 @@ class _TelaHomeState extends State<TelaHome> {
           children: [
             Expanded(
               child: _buildCardEvento(
-                imagem: '../assets/img/evento_aberto.jpg',
+                imagem: '../assets/img/imagem_aberta.jpg',
                 titulo: 'Inscrições abertas',
                 onTap: () {
                   Navigator.push(
@@ -45,13 +45,16 @@ class _TelaHomeState extends State<TelaHome> {
             const SizedBox(width: 20),
             Expanded(
               child: _buildCardEvento(
-                imagem: '../assets/img/evento_finalizado.jpg',
+                imagem: '../assets/img/imagem_finalizado.jpg',
                 titulo: 'Eventos finalizados',
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const TelaAnaisEventos(),
+                      builder: (context) => const TelaAnaisEventos(
+                        titulo: 'Anais de evento',
+                        banner: "../assets/img/fotoTecnologia.jpg",
+                      ),
                     ),
                   );
                 },
