@@ -33,51 +33,6 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
       pontoController.text = checklistPontos[index]['ponto'];
       pesoController.text = checklistPontos[index]['peso'].toString();
     }
-
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(index == null ? 'Adicionar Ponto' : 'Editar Ponto'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: pontoController,
-              decoration: const InputDecoration(labelText: 'Ponto'),
-            ),
-            TextField(
-              controller: pesoController,
-              decoration: const InputDecoration(labelText: 'Peso'),
-              keyboardType: TextInputType.number,
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancelar'),
-          ),
-          TextButton(
-            onPressed: () {
-              setState(() {
-                final novo = {
-                  'ponto': pontoController.text,
-                  'peso': int.tryParse(pesoController.text) ?? 1,
-                  'checked': false,
-                };
-                if (index == null) {
-                  checklistPontos.add(novo);
-                } else {
-                  checklistPontos[index] = novo;
-                }
-              });
-              Navigator.pop(context);
-            },
-            child: const Text('Salvar'),
-          ),
-        ],
-      ),
-    );
   }
 
   void _alternarVisualizacaoPDF() {
@@ -96,29 +51,6 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
     setState(() => geminiResponse = resposta ?? 'Erro ao obter resposta');
   }
 
-  Drawer _buildDrawer(BuildContext context) {
-    return Drawer(
-      backgroundColor: const Color(0xFF1D3E5F),
-      child: ListView(
-        children: [
-          const SizedBox(height: 40),
-          ListTile(
-            leading: const Icon(Icons.home_rounded, color: Colors.white),
-            title: const Text('Eventos disponíveis',
-                style: TextStyle(color: Colors.white)),
-            onTap: () => Navigator.pop(context),
-          ),
-          ListTile(
-            leading: const Icon(Icons.article_rounded, color: Colors.white),
-            title:
-                const Text('Submissões', style: TextStyle(color: Colors.white)),
-            onTap: () => Navigator.pop(context),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,14 +63,7 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () => _adicionarOuEditarPonto(),
-          ),
-        ],
       ),
-      drawer: _buildDrawer(context),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(

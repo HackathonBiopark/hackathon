@@ -1,7 +1,5 @@
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:valides_app/ui/gemini.dart';
-import 'package:valides_app/ui/tela_home_autor.dart';
-import 'package:valides_app/ui/tela_lista_artigos.dart';
 
 import 'package:flutter/material.dart';
 import 'package:valides_app/ui/tela_login.dart';

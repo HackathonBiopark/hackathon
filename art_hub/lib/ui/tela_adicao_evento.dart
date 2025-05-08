@@ -1,4 +1,3 @@
-import 'package:valides_app/ui/tela_home_eventos.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -26,18 +25,14 @@ class _TelaOrganizacaoEventoState extends State<TelaAdicaoEvento> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF1D3E5F),
-        title: const Text('Organização', style: TextStyle(color: Colors.white)),
+        title:
+            const Text('Administração', style: TextStyle(color: Colors.white)),
         centerTitle: true,
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.menu, color: Colors.white),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-          ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
         ),
       ),
-      drawer: _buildDrawer(context),
       body: Row(
         children: [
           Expanded(
@@ -49,8 +44,8 @@ class _TelaOrganizacaoEventoState extends State<TelaAdicaoEvento> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextField(
-                        decoration: const InputDecoration(
+                      const TextField(
+                        decoration: InputDecoration(
                           labelText: 'Nome do evento',
                           hintText: 'Digite o nome do evento',
                         ),
@@ -120,59 +115,6 @@ class _TelaOrganizacaoEventoState extends State<TelaAdicaoEvento> {
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Drawer _buildDrawer(BuildContext context) {
-    return Drawer(
-      backgroundColor: const Color(0xFF1D3E5F),
-      child: ListView(
-        children: [
-          const SizedBox(height: 40),
-          ListTile(
-            leading: const Icon(Icons.home_rounded, color: Colors.white),
-            title: const Text('Home', style: TextStyle(color: Colors.white)),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const TelaHomeEventos()),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.add_rounded, color: Colors.white),
-            title: const Text('Novo evento',
-                style: TextStyle(color: Colors.white)),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const TelaAdicaoEvento()),
-              );
-            },
-          ),
-          const Divider(
-              color: Colors.white30, thickness: 1, indent: 16, endIndent: 16),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-            child: Text(
-              'Eventos recentes',
-              style:
-                  TextStyle(color: Colors.white70, fontWeight: FontWeight.bold),
-            ),
-          ),
-          const ListTile(
-            dense: true,
-            title: Text(
-              'Conferência Data Minds 2025',
-              style: TextStyle(color: Colors.white, fontSize: 13),
-            ),
-            leading: Icon(Icons.event_note, color: Colors.white70, size: 20),
-            contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
           ),
         ],
       ),

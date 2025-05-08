@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:valides_app/ui/tela_adicao_evento.dart' show TelaAdicaoEvento;
 import 'package:valides_app/ui/tela_anais_evento.dart';
-import 'package:valides_app/ui/tela_home_eventos.dart';
+import 'package:valides_app/ui/tela_eventos_instituicao.dart';
+import 'package:valides_app/ui/tela_login.dart';
 
 class TelaHome extends StatefulWidget {
   const TelaHome({super.key});
@@ -131,6 +132,16 @@ class _TelaHomeState extends State<TelaHome> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => const TelaAdicaoEvento()),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.exit_to_app_rounded, color: Colors.white),
+            title: const Text('Sair', style: TextStyle(color: Colors.white)),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TelaLogin()),
               );
             },
           ),

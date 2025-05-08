@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:valides_app/ui/tela_adicao_evento.dart' show TelaAdicaoEvento;
 import 'package:valides_app/ui/tela_anais_evento.dart';
 import 'package:valides_app/ui/tela_lista_artigos.dart';
+import 'package:valides_app/ui/tela_login.dart';
 
 class TelaHomeAvaliador extends StatefulWidget {
   const TelaHomeAvaliador({super.key});
@@ -120,6 +120,16 @@ class _TelaHomeAvaliadorState extends State<TelaHomeAvaliador> {
             title: const Text('Home', style: TextStyle(color: Colors.white)),
             onTap: () {
               Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.exit_to_app_rounded, color: Colors.white),
+            title: const Text('Sair', style: TextStyle(color: Colors.white)),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TelaLogin()),
+              );
             },
           ),
           const Divider(

@@ -1,6 +1,4 @@
-import 'package:valides_app/ui/tela_adicao_evento.dart';
 import 'package:valides_app/ui/tela_artigo_coordenador.dart';
-import 'package:valides_app/ui/tela_home_eventos.dart';
 import 'package:flutter/material.dart';
 
 class TelaEventoCoordenador extends StatefulWidget {
@@ -28,50 +26,6 @@ class _TelaEventoState extends State<TelaEventoCoordenador> {
     });
   }
 
-  Drawer _buildDrawer(BuildContext context) {
-    return Drawer(
-      backgroundColor: const Color(0xFF1D3E5F),
-      child: ListView(
-        children: [
-          const SizedBox(height: 40),
-          ListTile(
-            leading: const Icon(Icons.home_rounded, color: Colors.white),
-            title: const Text('Home', style: TextStyle(color: Colors.white)),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const TelaHomeEventos()),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.add_rounded, color: Colors.white),
-            title: const Text('Novo evento',
-                style: TextStyle(color: Colors.white)),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const TelaAdicaoEvento()),
-              );
-            },
-          ),
-          const Divider(
-              color: Colors.white30, thickness: 1, indent: 16, endIndent: 16),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-            child: Text(
-              'Eventos recentes',
-              style:
-                  TextStyle(color: Colors.white70, fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,8 +34,11 @@ class _TelaEventoState extends State<TelaEventoCoordenador> {
         iconTheme: const IconThemeData(color: Colors.white),
         title: Text(widget.titulo, style: const TextStyle(color: Colors.white)),
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
-      drawer: _buildDrawer(context),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

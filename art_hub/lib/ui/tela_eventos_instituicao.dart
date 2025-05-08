@@ -32,11 +32,11 @@ class _TelaHomeEventosState extends State<TelaHomeEventos> {
   final List<Map<String, String>> eventos = [
     {
       'titulo': 'Conferência Data Minds 2025',
-      'banner': 'assets/img/fotoTecnologia1.jpg'
+      'banner': '../assets/img/fotoTecnologia1.jpg'
     },
     {
       'titulo': 'Simpósio de Inovação Tecnológica',
-      'banner': 'assets/img/fotoTecnologia.jpg'
+      'banner': '../assets/img/fotoTecnologia.jpg'
     },
   ];
 
@@ -78,8 +78,11 @@ class _TelaHomeEventosState extends State<TelaHomeEventos> {
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
-      drawer: _buildDrawer(context),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: GridView.builder(
@@ -131,73 +134,6 @@ class _TelaHomeEventosState extends State<TelaHomeEventos> {
             );
           },
         ),
-      ),
-    );
-  }
-
-  Drawer _buildDrawer(BuildContext context) {
-    return Drawer(
-      backgroundColor: const Color(0xFF1D3E5F),
-      child: ListView(
-        children: [
-          const SizedBox(height: 40),
-          ListTile(
-            leading: const Icon(Icons.home_rounded, color: Colors.white),
-            title: const Text('Home', style: TextStyle(color: Colors.white)),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const TelaHomeEventos()),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.add, color: Colors.white),
-            title: const Text('Novo evento',
-                style: TextStyle(color: Colors.white)),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const TelaAdicaoEvento()),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.exit_to_app_rounded, color: Colors.white),
-            title: const Text('Sair', style: TextStyle(color: Colors.white)),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const TelaLogin()),
-              );
-            },
-          ),
-          const Divider(
-            color: Colors.white30,
-            thickness: 1,
-            indent: 16,
-            endIndent: 16,
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-            child: Text(
-              'Eventos recentes',
-              style:
-                  TextStyle(color: Colors.white70, fontWeight: FontWeight.bold),
-            ),
-          ),
-          const ListTile(
-            dense: true,
-            title: Text(
-              'Conferência Data Minds 2025',
-              style: TextStyle(color: Colors.white, fontSize: 13),
-            ),
-            leading: Icon(Icons.event_note, color: Colors.white70, size: 20),
-            contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
-          ),
-        ],
       ),
     );
   }

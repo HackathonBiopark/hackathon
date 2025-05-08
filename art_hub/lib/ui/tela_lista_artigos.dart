@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:valides_app/ui/tela_home.dart';
 import 'tela_avaliacao_artigo.dart';
 
 class TelaListaArtigos extends StatefulWidget {
@@ -10,42 +9,6 @@ class TelaListaArtigos extends StatefulWidget {
 }
 
 class _TelaListaArtigosState extends State<TelaListaArtigos> {
-  Drawer _buildDrawer(BuildContext context) {
-    return Drawer(
-      backgroundColor: const Color(0xFF1D3E5F),
-      child: ListView(
-        children: [
-          const SizedBox(height: 40),
-          ListTile(
-            leading: const Icon(Icons.home_rounded, color: Colors.white),
-            title: const Text('Home', style: TextStyle(color: Colors.white)),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const TelaHome()),
-              );
-            },
-          ),
-          const Divider(
-            color: Color.fromARGB(255, 255, 255, 255),
-            thickness: 1,
-            indent: 16,
-            endIndent: 16,
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-            child: Text(
-              'Eventos Recentes',
-              style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   void _abrirAvaliacaoArtigo(String titulo) {
     Navigator.push(
       context,
@@ -64,8 +27,11 @@ class _TelaListaArtigosState extends State<TelaListaArtigos> {
         title: const Text('Artigos para Avaliação',
             style: TextStyle(color: Colors.white)),
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
-      drawer: _buildDrawer(context),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
