@@ -337,35 +337,19 @@ def selecionar_evento():
 
 # Função de login melhorada
 def login():
-    print("\n" + "="*50)
-    print("SISTEMA DE GESTÃO ACADÊMICA PARA EVENTOS CIENTÍFICOS".center(50))
-    print("="*50)
-    print("\n>>> LOGIN <<<\n")
-    
-    tentativas = 3
-    while tentativas > 0:
-        email = input("Email: ").strip()
-        senha = getpass("Senha: ").strip()
-        
-        caminho = f'dados/usuarios/{email}.json'
-        usuario = carregar_dados(caminho)
-        
-        if usuario and usuario['senha'] == hash_senha(senha):
-            print("\n" + "="*50)
-            print(f"Bem-vindo(a), {usuario['nome']}!".center(50))
-            print(f"Tipo de usuário: {usuario['tipo']}".center(50))
-            print("="*50 + "\n")
-            return usuario
-        
-        tentativas -= 1
-        if tentativas > 0:
-            print(f"\nCredenciais inválidas! Você tem mais {tentativas} tentativa(s).\n")
-        else:
-            print("\nNúmero máximo de tentativas excedido. Acesso bloqueado.")
-            sys.exit()
-    
-    return None
+    dados = request.get_json()
+    email = dados.get("email")
+    password = dados.get("password")
 
+    # Carregar os usuários do arquivo JSON
+    with open('data/usuarios.json', 'r') as f:
+        usuarios = json.load(f)
+
+    for usuario in usuarios.get("usuarios", []):
+        if usuario["email"] == email and usuario["senha"] == password:
+            return jsonify({"status": "success", "role": usuario["tipo"], "message": "Login bem-sucedido"}), 200
+
+    return jsonify({"status": "error", "message": "E-mail ou senha incorretos"}), 401
 # Função para avaliação inicial pelo coordenador
 def avaliar_artigo_inicial():
     print("\n" + "="*50)

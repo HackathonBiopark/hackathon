@@ -3,6 +3,8 @@ import 'package:valides_app/ui/tela_home_autor.dart';
 import 'package:valides_app/ui/tela_home_avaliador.dart';
 import 'package:flutter/material.dart';
 import '../utils/user_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 void main() {
   runApp(const TelaLogin());
@@ -29,34 +31,66 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  String? _selectedRole;
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _isLoading = false;
 
-  final List<String> _roles = ['Administrador', 'Autor', 'Avaliador'];
-
-  void _login() async {
+  Future<void> _login() async {
     if (_formKey.currentState!.validate()) {
-      // Salvar o tipo de usuário globalmente
-      await UserPreferences.saveUserType(_selectedRole!);
+      setState(() => _isLoading = true);
 
-      // Navegar para a tela correspondente
-      if (_selectedRole == 'Administrador') {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => TelaHomeAdministrador()),
+      try {
+        final response = await http.post(
+          Uri.parse('http://localhost:5050/api/login'),
+          headers: {'Content-Type': 'application/json'},
+          body: json.encode({
+            "email": _emailController.text,
+            "password": _passwordController.text,
+          }),
         );
-      } else if (_selectedRole == 'Autor') {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => TelaHomeAutor()),
+
+        if (response.statusCode == 200) {
+          final data = json.decode(response.body);
+          final role = data['role'];
+
+          await UserPreferences.saveUserType(role);
+
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) {
+              switch (role) {
+                case 'Administrador':
+                  return const TelaHomeAdministrador();
+                case 'Autor':
+                  return const TelaHomeAutor();
+                case 'Avaliador':
+                  return const TelaHomeAvaliador();
+                default:
+                  return const TelaHomeAdministrador();
+              }
+            }),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+                content: Text('Login falhou. Verifique suas credenciais.')),
+          );
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erro: ${e.toString()}')),
         );
-      } else if (_selectedRole == 'Avaliador') {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => TelaHomeAvaliador()),
-        );
+      } finally {
+        setState(() => _isLoading = false);
       }
     }
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -103,25 +137,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       fit: BoxFit.contain,
                     ),
                     const SizedBox(height: 24),
-                    DropdownButtonFormField<String>(
+                    TextFormField(
+                      controller: _emailController,
                       decoration: const InputDecoration(
-                        labelText: 'Nome',
+                        labelText: 'Email',
                         border: OutlineInputBorder(),
                       ),
-                      value: _selectedRole,
-                      items: _roles.map((role) {
-                        return DropdownMenuItem(
-                          value: role,
-                          child: Text(role),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedRole = value;
-                        });
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor insira seu email';
+                        }
+                        return null;
                       },
-                      validator: (value) =>
-                          value == null ? 'Selecione uma função' : null,
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
@@ -131,8 +158,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         labelText: 'Senha',
                         border: OutlineInputBorder(),
                       ),
-                      validator: (value) =>
-                          value == 'admin' ? null : 'Senha incorreta',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor insira sua senha';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(height: 24),
                     Padding(
@@ -141,15 +172,18 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: double.infinity,
                         height: 48,
                         child: ElevatedButton(
-                          onPressed: _login,
+                          onPressed: _isLoading ? null : _login,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF1D3E5F),
                             foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             textStyle: const TextStyle(fontSize: 16),
                           ),
-                          child: const Text("Entrar",
-                              style: TextStyle(fontSize: 16)),
+                          child: _isLoading
+                              ? const CircularProgressIndicator(
+                                  color: Colors.white)
+                              : const Text("Entrar",
+                                  style: TextStyle(fontSize: 16)),
                         ),
                       ),
                     ),

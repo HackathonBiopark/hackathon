@@ -22,7 +22,6 @@ Devido a alta necessidade de um processo mais simplificado de submissão de arti
 
 **BACKEND:**
 - Python 3.13 
-- Firebase (Banco de Dados) (SQL)
 - Os requerimentos do back end podem ser vistos no arquivo txt:
 	backend/requirements.txt
 
