@@ -54,9 +54,6 @@ class _TelaOrganizacaoEventoState extends State<TelaAdicaoEvento> {
                           labelText: 'Nome do evento',
                           hintText: 'Digite o nome do evento',
                         ),
-                        controller: TextEditingController(
-                          text: 'Conferência Data Minds 2025',
-                        ),
                       ),
                       const SizedBox(height: 16),
                       const TextField(
