@@ -124,20 +124,34 @@ class _TelaSubmissaoAutorState extends State<TelaSubmissaoAutor> {
                         ),
                       ),
                       const SizedBox(height: 24),
-                      Center(
-                        child: SizedBox(
-                          width: 250,
-                          child: ElevatedButton.icon(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: const Icon(Icons.send),
-                            label: const Text('Enviar para análise'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF1D3E5F),
-                              foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              textStyle: const TextStyle(fontSize: 16),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15, 20, 15, 10),
+                        child: Center(
+                          child: SizedBox(
+                            width: 250,
+                            height: 48,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF1D3E5F),
+                                foregroundColor: Colors.white,
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                textStyle: const TextStyle(fontSize: 16),
+                              ),
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.send, size: 20),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    'Enviar para análise',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
