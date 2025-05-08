@@ -1,0 +1,43 @@
+{
+    "402": {
+        "data_saida": "2025-04-24 15:13",
+        "status": "aprovada",
+        "funcionaria": "roberta",
+        "data_limpeza": "2025-04-24 15:14",
+        "observacoes": "",
+        "historico": [],
+        "data_aprovacao": "2025-04-24 15:15",
+        "aprovador": "admin"
+    },
+    "casa do davi": {
+        "data_saida": "2025-04-24 17:23",
+        "status": "aprovada",
+        "funcionario": "roberta",
+        "data_limpeza": "2025-04-24 17:27",
+        "observacoes": "",
+        "historico": [],
+        "data_aprovacao": "2025-04-25 15:18",
+        "aprovador": "davi"
+    },
+    "casa da carol": {
+        "data_saida": "2025-04-24 17:24",
+        "status": "pendente",
+        "funcionario": "daniela",
+        "data_limpeza": "2025-04-24 17:27",
+        "observacoes": "",
+        "historico": [],
+        "data_reprovacao": "2025-04-24 17:29",
+        "reprovador": "davi",
+        "motivo_reprovacao": "nao gostei"
+    },
+    "casa do samuel": {
+        "data_saida": "2025-04-24 17:25",
+        "status": "aprovada",
+        "funcionario": "fatima",
+        "data_limpeza": "2025-04-24 17:25",
+        "observacoes": "",
+        "historico": [],
+        "data_aprovacao": "2025-04-24 17:28",
+        "aprovador": "davi"
+    }
+}

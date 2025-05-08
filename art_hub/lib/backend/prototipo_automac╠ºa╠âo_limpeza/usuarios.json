@@ -1,0 +1,50 @@
+{
+    "admin": {
+        "nome": "Admin",
+        "login": "admin",
+        "senha": "admin123",
+        "tipo": "admin"
+    },
+    "roberta": {
+        "nome": "roberta",
+        "login": "roberta",
+        "senha": "roberta123",
+        "tipo": "funcionario"
+    },
+    "davi": {
+        "nome": "davi",
+        "login": "davi",
+        "senha": "123456",
+        "tipo": "gestor"
+    },
+    "fatima": {
+        "nome": "fatima",
+        "login": "fatima",
+        "senha": "fatima",
+        "tipo": "funcionario"
+    },
+    "daniela": {
+        "nome": "daniela",
+        "login": "daniela",
+        "senha": "daniela",
+        "tipo": "funcionario"
+    },
+    "leide": {
+        "nome": "Leide",
+        "login": "leide",
+        "senha": "123456",
+        "tipo": "funcionario"
+    },
+    "donelson": {
+        "nome": "Davi",
+        "login": "donelson",
+        "senha": "1234567",
+        "tipo": "gerente_unidade"
+    },
+    "loraine": {
+        "nome": "loraine",
+        "login": "loraine",
+        "senha": "123456",
+        "tipo": "funcionario"
+    }
+}
