@@ -2,15 +2,27 @@ import 'package:alugaix_app/ui/tela_home_eventos.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
-class TelaAdicaoEvento extends StatefulWidget {
-  const TelaAdicaoEvento({super.key});
+class TelaSubmissaoAutor extends StatefulWidget {
+  const TelaSubmissaoAutor({super.key});
 
   @override
-  State<TelaAdicaoEvento> createState() => _TelaOrganizacaoEventoState();
+  State<TelaSubmissaoAutor> createState() => _TelaSubmissaoAutorState();
 }
 
-class _TelaOrganizacaoEventoState extends State<TelaAdicaoEvento> {
+class _TelaSubmissaoAutorState extends State<TelaSubmissaoAutor> {
   String? bannerFileName;
+  String? selectedArea;
+
+  final List<String> _areasTematicas = [
+    'Comunicação',
+    'Cultura',
+    'Direitos humanos e justiça',
+    'Educação',
+    'Meio Ambiente',
+    'Saúde',
+    'Tecnologia e Produção',
+    'Trabalho'
+  ];
 
   void _pickBannerFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -26,7 +38,8 @@ class _TelaOrganizacaoEventoState extends State<TelaAdicaoEvento> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF1D3E5F),
-        title: const Text('Organização', style: TextStyle(color: Colors.white)),
+        title:
+            const Text('Nova submissão', style: TextStyle(color: Colors.white)),
         centerTitle: true,
         leading: Builder(
           builder: (context) => IconButton(
@@ -49,27 +62,51 @@ class _TelaOrganizacaoEventoState extends State<TelaAdicaoEvento> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextField(
-                        decoration: const InputDecoration(
-                          labelText: 'Nome do evento',
-                          hintText: 'Digite o nome do evento',
-                        ),
-                        controller: TextEditingController(
-                          text: 'Conferência Data Minds 2025',
+                      const TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Título',
+                          hintText: 'Digite o nome do artigo',
                         ),
                       ),
                       const SizedBox(height: 16),
                       const TextField(
                         decoration: InputDecoration(
-                          labelText: 'Data',
-                          hintText: 'dd/mm/aaaa',
+                          labelText: 'Autores',
+                          hintText: 'Informe os autores',
                         ),
                       ),
+                      const SizedBox(height: 16),
                       const TextField(
                         decoration: InputDecoration(
-                          labelText: 'Descrição',
-                          hintText: 'Breve descrição do evento',
+                          labelText: 'Resumo',
+                          hintText: 'Insira o resumo (até 2000 caracteres)',
                         ),
+                      ),
+                      const SizedBox(height: 16),
+                      const TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Palavras-chave',
+                          hintText: 'Coloque até 5 palavras-chave',
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      DropdownButtonFormField<String>(
+                        decoration: const InputDecoration(
+                          labelText: 'Área temática',
+                          border: OutlineInputBorder(),
+                        ),
+                        value: selectedArea,
+                        items: _areasTematicas.map((area) {
+                          return DropdownMenuItem(
+                            value: area,
+                            child: Text(area),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            selectedArea = value;
+                          });
+                        },
                       ),
                       const SizedBox(height: 16),
                       GestureDetector(
@@ -78,9 +115,10 @@ class _TelaOrganizacaoEventoState extends State<TelaAdicaoEvento> {
                           child: TextField(
                             readOnly: true,
                             decoration: InputDecoration(
-                              labelText: 'Banner',
-                              prefixIcon: const Icon(Icons.add_circle_outline),
-                              hintText: bannerFileName ?? 'Adicionar banner',
+                              labelText: 'Arquivo em PDF',
+                              prefixIcon: const Icon(Icons.attach_file),
+                              hintText:
+                                  bannerFileName ?? 'Selecionar arquivo PDF',
                             ),
                           ),
                         ),
@@ -93,13 +131,13 @@ class _TelaOrganizacaoEventoState extends State<TelaAdicaoEvento> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            icon: const Icon(Icons.save),
-                            label: const Text('Salvar'),
+                            icon: const Icon(Icons.send),
+                            label: const Text('Enviar para análise'),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFF1D3E5F),
+                              backgroundColor: const Color(0xFF1D3E5F),
                               foregroundColor: Colors.white,
-                              padding: EdgeInsets.symmetric(vertical: 16),
-                              textStyle: TextStyle(fontSize: 16),
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              textStyle: const TextStyle(fontSize: 16),
                             ),
                           ),
                         ),
@@ -128,19 +166,20 @@ class _TelaOrganizacaoEventoState extends State<TelaAdicaoEvento> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const TelaHomeEventos()),
+                  builder: (context) => const TelaHomeEventos(),
+                ),
               );
             },
           ),
           ListTile(
-            leading: const Icon(Icons.add_rounded, color: Colors.white),
-            title: const Text('Novo evento',
-                style: TextStyle(color: Colors.white)),
+            leading: const Icon(Icons.assignment, color: Colors.white),
+            title:
+                const Text('Submissões', style: TextStyle(color: Colors.white)),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const TelaAdicaoEvento()),
+                    builder: (context) => const TelaSubmissaoAutor()),
               );
             },
           ),
