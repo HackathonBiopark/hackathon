@@ -1,6 +1,7 @@
 import 'package:alugaix_app/ui/tela_adicao_evento.dart';
 import 'package:alugaix_app/ui/tela_evento_coordenador.dart';
 import 'package:alugaix_app/ui/tela_evento_autor.dart'; // Nova tela de autor
+import 'package:alugaix_app/ui/tela_login.dart';
 import 'package:flutter/material.dart';
 import '../utils/user_preferences.dart'; // Import para pegar o tipo de usuário
 
@@ -159,6 +160,16 @@ class _TelaHomeEventosState extends State<TelaHomeEventos> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => const TelaAdicaoEvento()),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.exit_to_app_rounded, color: Colors.white),
+            title: const Text('Sair', style: TextStyle(color: Colors.white)),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TelaLogin()),
               );
             },
           ),
