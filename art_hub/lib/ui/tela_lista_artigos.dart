@@ -49,7 +49,7 @@ class _TelaListaArtigosState extends State<TelaListaArtigos> {
             },
           ),
           const Divider(
-            color: Colors.white30,
+            color: Color.fromARGB(255, 255, 255, 255),
             thickness: 1,
             indent: 16,
             endIndent: 16,
@@ -58,8 +58,9 @@ class _TelaListaArtigosState extends State<TelaListaArtigos> {
             padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
             child: Text(
               'Eventos Recentes',
-              style:
-                  TextStyle(color: Colors.white70, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  fontWeight: FontWeight.bold),
             ),
           ),
         ],

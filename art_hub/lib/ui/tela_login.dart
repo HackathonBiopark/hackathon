@@ -1,4 +1,6 @@
 import 'package:valides_app/ui/tela_home.dart';
+import 'package:valides_app/ui/tela_home_autor.dart';
+import 'package:valides_app/ui/tela_home_avaliador.dart';
 import 'package:valides_app/ui/tela_lista_artigos.dart';
 import 'package:valides_app/ui/tela_submissao_autor.dart';
 import 'package:flutter/material.dart';
@@ -48,12 +50,12 @@ class _LoginScreenState extends State<LoginScreen> {
       } else if (_selectedRole == 'Autor') {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TelaSubmissaoAutor()),
+          MaterialPageRoute(builder: (context) => TelaHomeAutor()),
         );
       } else if (_selectedRole == 'Avaliador') {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TelaListaArtigos()),
+          MaterialPageRoute(builder: (context) => TelaHomeAvaliador()),
         );
       }
     }
