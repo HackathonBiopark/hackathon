@@ -1,6 +1,7 @@
 import 'package:alugaix_app/ui/tela_home_eventos.dart';
 import 'package:alugaix_app/ui/tela_submissao_autor.dart';
 import 'package:flutter/material.dart';
+import '../utils/user_preferences.dart';
 
 void main() {
   runApp(const TelaLogin());
@@ -32,8 +33,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final List<String> _roles = ['Administrador', 'Autor', 'Avaliador'];
 
-  void _login() {
+  void _login() async {
     if (_formKey.currentState!.validate()) {
+      // Salvar o tipo de usuário globalmente
+      await UserPreferences.saveUserType(_selectedRole!);
+
+      // Navegar para a tela correspondente
       if (_selectedRole == 'Administrador') {
         Navigator.push(
           context,
@@ -56,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 5, 36, 87),
+      backgroundColor: const Color.fromARGB(255, 5, 36, 87),
       body: Center(
         child: SingleChildScrollView(
           child: Container(
@@ -127,10 +132,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           textStyle: const TextStyle(fontSize: 16),
                         ),
-                        child: const Text(
-                          "Entrar",
-                          style: TextStyle(fontSize: 16),
-                        ),
+                        child: const Text("Entrar",
+                            style: TextStyle(fontSize: 16)),
                       ),
                     ),
                   ),

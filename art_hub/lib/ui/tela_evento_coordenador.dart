@@ -3,17 +3,17 @@ import 'package:alugaix_app/ui/tela_artigo_coordenador.dart';
 import 'package:alugaix_app/ui/tela_home_eventos.dart';
 import 'package:flutter/material.dart';
 
-class TelaEvento extends StatefulWidget {
+class TelaEventoCoordenador extends StatefulWidget {
   final String titulo;
   final String banner;
 
-  const TelaEvento({super.key, required this.titulo, required this.banner});
+  const TelaEventoCoordenador({super.key, required this.titulo, required this.banner});
 
   @override
-  State<TelaEvento> createState() => _TelaEventoState();
+  State<TelaEventoCoordenador> createState() => _TelaEventoState();
 }
 
-class _TelaEventoState extends State<TelaEvento> {
+class _TelaEventoState extends State<TelaEventoCoordenador> {
   final List<String> statusArtigos = List<String>.generate(10, (index) => '');
   final List<String> titulosArtigos = [
     'Aplicações da IA na Educação: Desafios e Oportunidades',
