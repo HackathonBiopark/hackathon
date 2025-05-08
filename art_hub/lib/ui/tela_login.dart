@@ -1,4 +1,5 @@
 import 'package:alugaix_app/ui/tela_home_eventos.dart';
+import 'package:alugaix_app/ui/tela_submissao_autor.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -33,9 +34,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _login() {
     if (_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Login bem-sucedido!')),
-      );
+      if (_selectedRole == 'Administrador') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => TelaHomeEventos()),
+        );
+      } else if (_selectedRole == 'Autor') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => TelaSubmissaoAutor()),
+        );
+      } else if (_selectedRole == 'Avaliador') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => TelaSubmissaoAutor()),
+        );
+      }
     }
   }
 
@@ -106,22 +120,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: double.infinity,
                       height: 48,
                       child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => TelaHomeEventos()),
-                          );
-                        },
+                        onPressed: _login,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 37, 71, 108),
-                          foregroundColor:
-                              const Color.fromARGB(255, 255, 255, 255),
-                          elevation: 6,
-                          shadowColor: Color.fromARGB(255, 63, 121, 184),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
+                          backgroundColor: const Color(0xFF1D3E5F),
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          textStyle: const TextStyle(fontSize: 16),
                         ),
                         child: const Text(
                           "Entrar",

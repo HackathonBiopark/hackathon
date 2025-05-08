@@ -86,20 +86,34 @@ class _TelaOrganizacaoEventoState extends State<TelaAdicaoEvento> {
                         ),
                       ),
                       const SizedBox(height: 24),
-                      Center(
-                        child: SizedBox(
-                          width: 250,
-                          child: ElevatedButton.icon(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: const Icon(Icons.save),
-                            label: const Text('Salvar'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFF1D3E5F),
-                              foregroundColor: Colors.white,
-                              padding: EdgeInsets.symmetric(vertical: 16),
-                              textStyle: TextStyle(fontSize: 16),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15, 20, 15, 10),
+                        child: Center(
+                          child: SizedBox(
+                            width: 250,
+                            height: 48,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF1D3E5F),
+                                foregroundColor: Colors.white,
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                textStyle: const TextStyle(fontSize: 16),
+                              ),
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.save, size: 20),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    'Salvar',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),

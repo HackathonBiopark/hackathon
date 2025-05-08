@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: const TelaSubmissaoAutor(),
+      home: const TelaLogin(),
     );
   }
 }
