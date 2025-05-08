@@ -1,19 +1,20 @@
-import 'package:alugaix_app/ui/tela_adicao_evento.dart';
-import 'package:alugaix_app/ui/tela_artigo_coordenador.dart';
-import 'package:alugaix_app/ui/tela_home_eventos.dart';
+import 'package:valides_app/ui/tela_adicao_evento.dart';
+import 'package:valides_app/ui/tela_artigo_coordenador.dart';
+import 'package:valides_app/ui/tela_home_eventos.dart';
 import 'package:flutter/material.dart';
 
-class TelaEvento extends StatefulWidget {
+class TelaEventoCoordenador extends StatefulWidget {
   final String titulo;
   final String banner;
 
-  const TelaEvento({super.key, required this.titulo, required this.banner});
+  const TelaEventoCoordenador(
+      {super.key, required this.titulo, required this.banner});
 
   @override
-  State<TelaEvento> createState() => _TelaEventoState();
+  State<TelaEventoCoordenador> createState() => _TelaEventoState();
 }
 
-class _TelaEventoState extends State<TelaEvento> {
+class _TelaEventoState extends State<TelaEventoCoordenador> {
   final List<String> statusArtigos = List<String>.generate(10, (index) => '');
   final List<String> titulosArtigos = [
     'Aplicações da IA na Educação: Desafios e Oportunidades',
@@ -65,15 +66,6 @@ class _TelaEventoState extends State<TelaEvento> {
               style:
                   TextStyle(color: Colors.white70, fontWeight: FontWeight.bold),
             ),
-          ),
-          const ListTile(
-            dense: true,
-            title: Text(
-              'Conferência Data Minds 2025',
-              style: TextStyle(color: Colors.white, fontSize: 13),
-            ),
-            leading: Icon(Icons.event_note, color: Colors.white70, size: 20),
-            contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
           ),
         ],
       ),
@@ -129,6 +121,32 @@ class _TelaEventoState extends State<TelaEvento> {
                     margin: const EdgeInsets.symmetric(vertical: 4),
                     child: ListTile(
                       title: Text(titulosArtigos[index]),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.check, color: Colors.green),
+                            onPressed: () {
+                              _atualizarStatus(index, 'Aprovado');
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.close, color: Colors.red),
+                            onPressed: () {
+                              _atualizarStatus(index, 'Recusado');
+                            },
+                          ),
+                        ],
+                      ),
+                      subtitle: Text(
+                        statusArtigos[index],
+                        style: TextStyle(
+                          color: statusArtigos[index] == 'Aprovado'
+                              ? Colors.green
+                              : Colors.red,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -143,15 +161,6 @@ class _TelaEventoState extends State<TelaEvento> {
                           ),
                         );
                       },
-                      subtitle: Text(
-                        statusArtigos[index],
-                        style: TextStyle(
-                          color: statusArtigos[index] == 'Aceito'
-                              ? Colors.green
-                              : Colors.red,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
                     ),
                   );
                 },
