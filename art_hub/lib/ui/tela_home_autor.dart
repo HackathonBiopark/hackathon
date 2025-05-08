@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:valides_app/ui/eventos_submissoes.dart';
-import 'package:valides_app/ui/tela_adicao_evento.dart' show TelaAdicaoEvento;
 import 'package:valides_app/ui/tela_anais_evento.dart';
 import 'package:valides_app/ui/tela_home_eventos.dart';
-import 'package:valides_app/ui/tela_lista_artigos.dart';
 
 class TelaHomeAutor extends StatefulWidget {
   const TelaHomeAutor({super.key});

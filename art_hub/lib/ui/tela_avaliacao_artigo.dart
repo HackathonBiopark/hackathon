@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pdf_render/pdf_render_widgets.dart';
 import 'package:valides_app/ui/gemini.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class TelaAvaliacaoArtigo extends StatefulWidget {
   final String titulo;
@@ -81,10 +79,6 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
     );
   }
 
-  void _alternarVisualizacaoPDF() {
-    setState(() => isPdfVisible = !isPdfVisible);
-  }
-
   Future<void> _enviarParaGemini() async {
     final errosSelecionados = checklistPontos
         .where((e) => e['checked'] == true)
@@ -151,25 +145,25 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
               Card(
                 margin: const EdgeInsets.symmetric(vertical: 8),
                 child: ListTile(
-                  title: Text(isPdfVisible ? 'Fechar PDF' : 'Abrir PDF'),
-                  onTap: _alternarVisualizacaoPDF,
+                  title: const Text('Visualização do PDF'),
                 ),
               ),
-              if (isPdfVisible)
-                SizedBox(
-                    height: 1000,
-                    width: 1000,
-                    child: PdfViewer.openFutureFile(
-                      () async => (await DefaultCacheManager().getSingleFile(
-                              'https://github.com/HackathonBiopark/hackathon/blob/9f2a46d38794459fe949ebfbc49b86b772e46942/art_hub/assets/pdf/artigo1.pdf'))
-                          .path,
-                      onError: (err) => print(err),
-                      params: const PdfViewerParams(
-                        padding: 10,
-                        minScale: 1.0,
-                        // scrollDirection: Axis.horizontal,
-                      ),
-                    )),
+              Center(
+                child: SizedBox(
+                  width: 1000, // Ajuste a largura conforme necessário
+                  child: Image.asset(
+                    'assets/img/pdf.png',
+                    filterQuality: FilterQuality.high,
+                    fit: BoxFit.contain, // Ajuste a forma de preenchimento
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Center(
+                        child: Text('Erro ao carregar imagem'),
+                      );
+                    },
+                  ),
+                ),
+              ),
+
               // OBSERVAÇÃO E GERAÇÃO DE SUGESTÕES
 
               Card(

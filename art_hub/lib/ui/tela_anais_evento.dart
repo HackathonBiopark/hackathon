@@ -20,13 +20,7 @@ class _TelaEventosState extends State<TelaAnaisEventos> {
     'Seminário de pesquisa',
   ];
 
-  void _atualizarStatus(int index, String status) {
-    setState(
-      () {
-        statusArtigos[index] = status;
-      },
-    );
-  }
+  
 
   Drawer _buildDrawer(BuildContext context) {
     return Drawer(
