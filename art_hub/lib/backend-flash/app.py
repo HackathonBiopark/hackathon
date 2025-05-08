@@ -87,5 +87,31 @@ def login():
 def menu():
     return main_bp.menu()
 
+# Rotas para Listagem e Consulta de Eventos
+
+@app.route('/api/eventos', methods=['GET'])
+def listar_eventos():
+    return eventos_bp.listar_eventos()
+
+@app.route('/api/eventos/abertos', methods=['GET'])
+def listar_eventos_abertos():
+    return eventos_bp.listar_eventos_abertos()
+
+@app.route('/api/eventos/finalizados', methods=['GET'])
+def listar_eventos_finalizados():
+    return eventos_bp.listar_eventos_finalizados()
+
+@app.route('/api/eventos/recentes', methods=['GET'])
+def listar_eventos_recentes():
+    return eventos_bp.listar_eventos_recentes()
+
+@app.route('/api/evento/<int:id>', methods=['GET'])
+def obter_evento(id):
+    return eventos_bp.obter_evento(id)
+
+@app.route('/api/eventos/<int:id>/anais', methods=['GET'])
+def listar_anais(id):
+    return eventos_bp.listar_anais(id)
+
 if __name__ == '__main__':
-    app.run(debug=True,host='localhost', port=5000)
+    app.run(debug=True,host='localhost', port=5050)

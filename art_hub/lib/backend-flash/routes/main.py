@@ -595,6 +595,56 @@ def publicar_anais():
     print(f"\nAnais publicados com sucesso no arquivo {nome_anais}!")
     print(f"Total de artigos publicados: {len(artigos_aprovados)}")
 
+
+# Rota para listar todos os eventos
+
+def listar_eventos():
+    dados = carregar_dados()
+    eventos = dados.get("eventos", [])
+    return jsonify(eventos), 200
+
+# Rota para listar eventos abertos
+
+def listar_eventos_abertos():
+    dados = carregar_dados()
+    eventos = [evento for evento in dados.get("eventos", []) if evento.get("status") == "aberto"]
+    return jsonify(eventos), 200
+
+# Rota para listar eventos finalizados
+
+def listar_eventos_finalizados():
+    dados = carregar_dados()
+    eventos = [evento for evento in dados.get("eventos", []) if evento.get("status") == "finalizado"]
+    return jsonify(eventos), 200
+
+# Rota para listar eventos recentes (últimos 5 eventos)
+
+def listar_eventos_recentes():
+    dados = carregar_dados()
+    eventos = dados.get("eventos", [])
+    eventos_recentes = sorted(eventos, key=lambda x: x.get("data", ""), reverse=True)[:5]
+    return jsonify(eventos_recentes), 200
+
+# Rota para buscar detalhes de um evento específico
+
+def obter_evento(id):
+    dados = carregar_dados()
+    eventos = dados.get("eventos", [])
+    evento = next((evento for evento in eventos if evento.get("id") == id), None)
+    if evento:
+        return jsonify(evento), 200
+    return jsonify({"message": "Evento não encontrado"}), 404
+
+# Rota para buscar os anais de um evento finalizado
+
+def listar_anais(id):
+    dados = carregar_dados()
+    eventos = dados.get("eventos", [])
+    evento = next((evento for evento in eventos if evento.get("id") == id), None)
+    if evento and evento.get("status") == "finalizado":
+        anais = evento.get("anais", [])
+        return jsonify(anais), 200
+    return jsonify({"message": "Anais não encontrados ou evento não finalizado"}), 404
 # Função principal do sistema
 def menu():
     usuario = login()
