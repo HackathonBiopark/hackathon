@@ -60,7 +60,7 @@ class _TelaHomeEventosState extends State<TelaHomeEventos> {
             banner: banner,
             artigoTitulo: 'Aplicações da IA na Educação',
             artigoResumo: 'Este artigo explora o impacto da IA no ensino...',
-            statusArtigo: 'Pendente', // Exemplo de status
+            statusArtigo: 'Pendente',
           ),
         ),
       );

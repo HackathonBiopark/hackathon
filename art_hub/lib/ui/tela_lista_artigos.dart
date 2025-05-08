@@ -28,7 +28,7 @@ class _TelaListaArtigosState extends State<TelaListaArtigos> {
             },
           ),
           const Divider(
-            color: Colors.white30,
+            color: Color.fromARGB(255, 255, 255, 255),
             thickness: 1,
             indent: 16,
             endIndent: 16,
@@ -37,8 +37,9 @@ class _TelaListaArtigosState extends State<TelaListaArtigos> {
             padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
             child: Text(
               'Eventos Recentes',
-              style:
-                  TextStyle(color: Colors.white70, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -61,7 +62,8 @@ class _TelaListaArtigosState extends State<TelaListaArtigos> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF1D3E5F),
         iconTheme: const IconThemeData(color: Colors.white),
-        title: const Text('Avaliador', style: TextStyle(color: Colors.white)),
+        title: const Text('Artigos para avaliação',
+            style: TextStyle(color: Colors.white)),
         centerTitle: true,
       ),
       drawer: _buildDrawer(context),
@@ -70,34 +72,32 @@ class _TelaListaArtigosState extends State<TelaListaArtigos> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Center(
-              child: Text(
-                'Artigos para Avaliação',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
+            const Text(
+              'Atribuições: ',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             Expanded(
               child: ListView.builder(
-                itemCount: 3, // Número de artigos (pode ser dinâmico)
+                itemCount: 3,
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () =>
-                        _abrirAvaliacaoArtigo('Título do artigo $index'),
+                        _abrirAvaliacaoArtigo('Título do artigo ${index + 1}'),
                     child: Card(
                       margin: const EdgeInsets.symmetric(vertical: 8),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      color: const Color.fromARGB(255, 220, 219, 219),
+                      color: const Color.fromARGB(255, 255, 255, 255),
                       child: ListTile(
                         title: Text(
-                          'Título do artigo $index',
+                          'Título do artigo ${index + 1}',
                           style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         subtitle: const Text(
-                          'Nome do autor',
+                          'Nome do autor indisponível',
                           style: TextStyle(fontSize: 14),
                         ),
                       ),

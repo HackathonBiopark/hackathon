@@ -187,7 +187,8 @@ class _TelaEventoAutorState extends State<TelaEventoAutor> {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF1D3E5F),
+                          backgroundColor:
+                              const Color.fromARGB(255, 255, 255, 255),
                         ),
                         child: const Text('Ver Detalhes'),
                       ),

@@ -18,7 +18,8 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
   ];
 
   bool isPdfVisible = false;
-  String urlPDF = '/Users/davispecia/Documents/hackathon-main/art_hub/assets/img/FATURA AGATA 1701 A 1802 (1).pdf';
+  String urlPDF =
+      '/Users/davispecia/Documents/hackathon-main/art_hub/assets/img/FATURA AGATA 1701 A 1802 (1).pdf';
 
   void _adicionarOuEditarPonto([int? index]) {
     final TextEditingController pontoController = TextEditingController();
@@ -97,7 +98,8 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
           ),
           ListTile(
             leading: const Icon(Icons.article_rounded, color: Colors.white),
-            title: const Text('Submissões', style: TextStyle(color: Colors.white)),
+            title:
+                const Text('Submissões', style: TextStyle(color: Colors.white)),
             onTap: () {
               Navigator.pop(context);
             },
@@ -134,18 +136,16 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Center(
-              child: Text(
-                'Avaliar Artigo',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
+            const Text(
+              'Ficha de avaliação:',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            Card(
-              margin: const EdgeInsets.symmetric(vertical: 8),
+            const Card(
+              margin: EdgeInsets.symmetric(vertical: 8),
               child: ListTile(
-                title: const Text('Título do artigo'),
-                subtitle: const Text('Nome do autor'),
+                title: Text('Título do artigo'),
+                subtitle: Text('Nome do autor indisponível'),
               ),
             ),
             Card(
@@ -153,6 +153,10 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
               child: ListTile(
                 title: Text(isPdfVisible ? 'Fechar PDF' : 'Abrir PDF'),
                 onTap: _alternarVisualizacaoPDF,
+                subtitle: const Text(
+                  'O arquivo não possui metadados',
+                  style: TextStyle(fontSize: 14),
+                ),
               ),
             ),
             if (isPdfVisible)
@@ -168,14 +172,16 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
                   children: [
                     const Text(
                       'Checklist padrão',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 8),
                     ...checklistPontos.asMap().entries.map((entry) {
                       int index = entry.key;
                       var ponto = entry.value;
                       return CheckboxListTile(
-                        title: Text('${ponto['ponto']} (Peso: ${ponto['peso']})'),
+                        title:
+                            Text('${ponto['ponto']} (Peso: ${ponto['peso']})'),
                         value: ponto['checked'],
                         onChanged: (bool? value) {
                           setState(() {

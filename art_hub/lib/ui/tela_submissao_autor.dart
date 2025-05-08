@@ -115,7 +115,21 @@ class _TelaSubmissaoAutorState extends State<TelaSubmissaoAutor> {
                           child: TextField(
                             readOnly: true,
                             decoration: InputDecoration(
-                              labelText: 'Arquivo em PDF',
+                              labelText: 'Arquivo em PDF com metadados',
+                              prefixIcon: const Icon(Icons.attach_file),
+                              hintText:
+                                  bannerFileName ?? 'Selecionar arquivo PDF',
+                            ),
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: _pickBannerFile,
+                        child: AbsorbPointer(
+                          child: TextField(
+                            readOnly: true,
+                            decoration: InputDecoration(
+                              labelText: 'Arquivo em PDF sem metadados',
                               prefixIcon: const Icon(Icons.attach_file),
                               hintText:
                                   bannerFileName ?? 'Selecionar arquivo PDF',

@@ -1,4 +1,8 @@
 import 'package:valides_app/ui/tela_avaliacao_artigo.dart';
+import 'package:valides_app/ui/tela_home.dart';
+import 'package:valides_app/ui/tela_home_autor.dart';
+import 'package:valides_app/ui/tela_home_avaliador.dart';
+import 'package:valides_app/ui/tela_home_eventos.dart';
 import 'package:valides_app/ui/tela_lista_artigos.dart';
 import 'package:valides_app/ui/tela_login.dart';
 
@@ -19,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: const TelaListaArtigos(),
+      home: const TelaHomeAutor(),
     );
   }
 }
