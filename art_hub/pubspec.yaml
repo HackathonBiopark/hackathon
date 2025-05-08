@@ -35,8 +35,4 @@ flutter:
     - assets/img/
     - lib/conteudo/
 
-  # assets:
-  #   - assets/images/DAE0C3C3-7434-4E45-BF4E-30E1A55ACC59.png
-  #   - assets/images/20240827_EDGARD SOARES_7745_1.jpg
-  #   - assets/images/20240827_EDGARD SOARES_7753_1.jpg
-  #   - assets/images/goiania faixada.jpg
+  
