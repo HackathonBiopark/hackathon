@@ -1,3 +1,4 @@
+import 'package:alugaix_app/ui/tela_home_eventos.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: const LoginPage(),
+      home: TelaHomeEventos(),
     );
   }
 }
