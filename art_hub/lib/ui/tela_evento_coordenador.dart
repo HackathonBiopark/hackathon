@@ -26,6 +26,21 @@ class _TelaEventoState extends State<TelaEventoCoordenador> {
     });
   }
 
+  Color _getStatusColor(String status) {
+    switch (status) {
+      case 'Aprovado':
+        return const Color.fromARGB(255, 56, 142, 60);
+      case 'Reprovado':
+        return const Color.fromARGB(255, 211, 47, 47);
+      case 'Revisões necessárias':
+        return const Color.fromARGB(255, 41, 98, 255);
+      case 'Em avaliação':
+        return const Color.fromARGB(255, 175, 76, 157);
+      default:
+        return Colors.grey;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,15 +97,30 @@ class _TelaEventoState extends State<TelaEventoCoordenador> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           IconButton(
-                            icon: const Icon(Icons.check, color: Colors.green),
+                            icon: const Icon(Icons.turned_in,
+                                color: Color.fromARGB(255, 175, 76, 157)),
+                            onPressed: () {
+                              _atualizarStatus(index, 'Avaliação');
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.check_circle,
+                                color: Color.fromARGB(255, 54, 244, 79)),
                             onPressed: () {
                               _atualizarStatus(index, 'Aprovado');
                             },
                           ),
                           IconButton(
-                            icon: const Icon(Icons.close, color: Colors.red),
+                            icon: const Icon(Icons.cancel, color: Colors.red),
                             onPressed: () {
-                              _atualizarStatus(index, 'Recusado');
+                              _atualizarStatus(index, 'Reprovado');
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.edit,
+                                color: Color.fromARGB(255, 54, 105, 244)),
+                            onPressed: () {
+                              _atualizarStatus(index, 'Revisões');
                             },
                           ),
                         ],
@@ -98,10 +128,9 @@ class _TelaEventoState extends State<TelaEventoCoordenador> {
                       subtitle: Text(
                         statusArtigos[index],
                         style: TextStyle(
-                          color: statusArtigos[index] == 'Aprovado'
-                              ? Colors.green
-                              : Colors.red,
+                          color: _getStatusColor(statusArtigos[index]),
                           fontWeight: FontWeight.bold,
+                          fontSize: 14,
                         ),
                       ),
                       onTap: () {
@@ -111,7 +140,7 @@ class _TelaEventoState extends State<TelaEventoCoordenador> {
                             builder: (context) => TelaArtigoCoordenador(
                               artigo: {
                                 'titulo': titulosArtigos[index],
-                                'autores': 'Fulano, Sicrano',
+                                'autores': 'Indisponível',
                                 'resumo': 'Resumo do artigo...'
                               },
                             ),

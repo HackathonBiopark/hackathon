@@ -177,8 +177,6 @@ class _TelaArtigoCoordenadorState extends State<TelaArtigoCoordenador> {
                 ),
               ),
             ),
-
-            // Título da Seção de Avaliadores
             const Text(
               'Avaliadores Escolhidos:',
               style: TextStyle(
@@ -189,7 +187,6 @@ class _TelaArtigoCoordenadorState extends State<TelaArtigoCoordenador> {
             ),
             const SizedBox(height: 8),
 
-            // Lista de Avaliadores
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -237,6 +234,13 @@ class _TelaArtigoCoordenadorState extends State<TelaArtigoCoordenador> {
                   ),
                 );
               },
+            ),
+            const SizedBox(height: 16),
+            const TextField(
+              decoration: InputDecoration(
+                labelText: 'Comentário',
+                hintText: '',
+              ),
             ),
             const SizedBox(height: 16),
             const Text(

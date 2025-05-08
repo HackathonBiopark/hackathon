@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:valides_app/ui/tela_adicao_evento.dart' show TelaAdicaoEvento;
 import 'package:valides_app/ui/tela_anais_evento.dart';
+import 'package:valides_app/ui/tela_evento_coordenador.dart';
 import 'package:valides_app/ui/tela_eventos_instituicao.dart';
 import 'package:valides_app/ui/tela_login.dart';
 
-class TelaHome extends StatefulWidget {
-  const TelaHome({super.key});
+class TelaHomeAdministrador extends StatefulWidget {
+  const TelaHomeAdministrador({super.key});
 
   @override
-  State<TelaHome> createState() => _TelaHomeState();
+  State<TelaHomeAdministrador> createState() => _TelaHomeAdministradorState();
 }
 
-class _TelaHomeState extends State<TelaHome> {
+class _TelaHomeAdministradorState extends State<TelaHomeAdministrador> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +38,10 @@ class _TelaHomeState extends State<TelaHome> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const TelaHomeEventos(),
+                      builder: (context) => const TelaEventoCoordenador(
+                        titulo: '',
+                        banner: '../assets/img/fotoTecnologia2.jpg',
+                      ),
                     ),
                   );
                 },

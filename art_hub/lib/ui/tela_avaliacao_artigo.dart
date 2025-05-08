@@ -98,11 +98,8 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
                       params: const PdfViewerParams(
                         padding: 10,
                         minScale: 1.0,
-                        // scrollDirection: Axis.horizontal,
                       ),
                     )),
-              // OBSERVAÇÃO E GERAÇÃO DE SUGESTÕES
-
               Card(
                 margin: const EdgeInsets.symmetric(vertical: 8),
                 child: Padding(
@@ -192,6 +189,12 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
                   ),
                 ),
               ),
+              const TextField(
+                decoration: InputDecoration(
+                  labelText: 'Prazo para atender aos pareceres dos avaliadores',
+                  hintText: 'dd/mm/aaaa',
+                ),
+              ),
               Card(
                 margin: const EdgeInsets.symmetric(vertical: 8),
                 child: ListTile(
@@ -236,7 +239,6 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
                   },
                 ),
               ),
-
               SizedBox(
                 height: 8,
               ),
