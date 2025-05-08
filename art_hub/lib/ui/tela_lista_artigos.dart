@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:valides_app/ui/tela_home.dart';
-import 'package:valides_app/ui/tela_home_eventos.dart';
 import 'tela_avaliacao_artigo.dart';
 
 class TelaListaArtigos extends StatefulWidget {
@@ -61,7 +60,8 @@ class _TelaListaArtigosState extends State<TelaListaArtigos> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF1D3E5F),
         iconTheme: const IconThemeData(color: Colors.white),
-        title: const Text('Avaliador', style: TextStyle(color: Colors.white)),
+        title: const Text('Artigos para Avaliação',
+            style: TextStyle(color: Colors.white)),
         centerTitle: true,
       ),
       drawer: _buildDrawer(context),
@@ -70,13 +70,6 @@ class _TelaListaArtigosState extends State<TelaListaArtigos> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Center(
-              child: Text(
-                'Artigos para Avaliação',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(height: 16),
             Expanded(
               child: ListView.builder(
                 itemCount: 3, // Número de artigos (pode ser dinâmico)

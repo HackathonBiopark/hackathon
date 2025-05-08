@@ -21,9 +21,11 @@ class _TelaEventosState extends State<TelaAnaisEventos> {
   ];
 
   void _atualizarStatus(int index, String status) {
-    setState(() {
-      statusArtigos[index] = status;
-    });
+    setState(
+      () {
+        statusArtigos[index] = status;
+      },
+    );
   }
 
   Drawer _buildDrawer(BuildContext context) {
