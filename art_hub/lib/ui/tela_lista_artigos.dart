@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:valides_app/ui/tela_home.dart';
+import 'package:valides_app/ui/tela_home_eventos.dart';
 import 'tela_avaliacao_artigo.dart';
 
 class TelaListaArtigos extends StatefulWidget {
@@ -13,24 +15,31 @@ class _TelaListaArtigosState extends State<TelaListaArtigos> {
     return Drawer(
       backgroundColor: const Color(0xFF1D3E5F),
       child: ListView(
-        padding: EdgeInsets.zero,
         children: [
           const SizedBox(height: 40),
           ListTile(
-            leading: const Icon(Icons.add_circle, color: Colors.white),
-            title: const Text('Eventos disponíveis',
-                style: TextStyle(color: Colors.white)),
+            leading: const Icon(Icons.home_rounded, color: Colors.white),
+            title: const Text('Home', style: TextStyle(color: Colors.white)),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TelaHome()),
+              );
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.article_rounded, color: Colors.white),
-            title:
-                const Text('Submissões', style: TextStyle(color: Colors.white)),
-            onTap: () {
-              Navigator.pop(context);
-            },
+          const Divider(
+            color: Colors.white30,
+            thickness: 1,
+            indent: 16,
+            endIndent: 16,
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+            child: Text(
+              'Eventos Recentes',
+              style:
+                  TextStyle(color: Colors.white70, fontWeight: FontWeight.bold),
+            ),
           ),
         ],
       ),

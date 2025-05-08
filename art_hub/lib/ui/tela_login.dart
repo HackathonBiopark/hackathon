@@ -1,5 +1,6 @@
 import 'package:valides_app/ui/tela_home.dart';
 import 'package:valides_app/ui/tela_home_eventos.dart';
+import 'package:valides_app/ui/tela_lista_artigos.dart';
 import 'package:valides_app/ui/tela_submissao_autor.dart';
 import 'package:flutter/material.dart';
 import '../utils/user_preferences.dart';
@@ -53,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
       } else if (_selectedRole == 'Avaliador') {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TelaSubmissaoAutor()),
+          MaterialPageRoute(builder: (context) => TelaListaArtigos()),
         );
       }
     }
