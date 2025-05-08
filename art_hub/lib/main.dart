@@ -4,6 +4,7 @@ import 'package:valides_app/ui/tela_home_autor.dart';
 import 'package:valides_app/ui/tela_lista_artigos.dart';
 
 import 'package:flutter/material.dart';
+import 'package:valides_app/ui/tela_login.dart';
 
 void main() {
   Gemini.init(
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: const TelaHomeAutor(),
+      home: const TelaLogin(),
     );
   }
 }

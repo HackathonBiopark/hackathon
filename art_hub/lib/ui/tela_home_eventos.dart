@@ -32,7 +32,7 @@ class _TelaHomeEventosState extends State<TelaHomeEventos> {
   final List<Map<String, String>> eventos = [
     {
       'titulo': 'Conferência Data Minds 2025',
-      'banner': 'assets/img/fotoTecnologia.jpg'
+      'banner': 'assets/img/fotoTecnologia1.jpg'
     },
     {
       'titulo': 'Simpósio de Inovação Tecnológica',

@@ -3,7 +3,6 @@ import 'package:valides_app/ui/eventos_submissoes.dart';
 import 'package:valides_app/ui/tela_adicao_evento.dart' show TelaAdicaoEvento;
 import 'package:valides_app/ui/tela_anais_evento.dart';
 import 'package:valides_app/ui/tela_home_eventos.dart';
-import 'package:valides_app/ui/tela_lista_artigos.dart';
 
 class TelaHomeAutor extends StatefulWidget {
   const TelaHomeAutor({super.key});
@@ -47,7 +46,7 @@ class _TelaHomeAutorState extends State<TelaHomeAutor> {
             const SizedBox(width: 20),
             Expanded(
               child: _buildCardEvento(
-                imagem: '../assets/img/imagem_finalizado.jpg',
+                imagem: '../assets/img/submissoes.jpg',
                 titulo: 'Minhas submissões',
                 onTap: () {
                   Navigator.push(

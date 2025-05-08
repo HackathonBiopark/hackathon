@@ -53,7 +53,7 @@ class _TelaHomeAvaliadorState extends State<TelaHomeAvaliador> {
                     MaterialPageRoute(
                       builder: (context) => const TelaAnaisEventos(
                         titulo: 'Anais de evento',
-                        banner: "../assets/img/fotoTecnologia.jpg",
+                        banner: "../assets/img/fotoTecnologia2.jpg",
                       ),
                     ),
                   );
