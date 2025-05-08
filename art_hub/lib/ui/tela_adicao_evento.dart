@@ -1,4 +1,4 @@
-import 'package:alugaix_app/ui/tela_home_eventos.dart';
+import 'package:valides_app/ui/tela_home_eventos.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,4 @@
-import 'package:alugaix_app/ui/tela_submissao_autor.dart';
-import 'package:alugaix_app/ui/tela_login.dart';
+import 'package:valides_app/ui/tela_login.dart';
 import 'package:flutter/material.dart';
 
 void main() {
