@@ -1,0 +1,21 @@
+{
+    "titulo": "Teste artigo",
+    "autores": "Penis, OutroPenis",
+    "resumo": "eu quero morrer agora mesmo!!!!!!!!!!!!!!!!!!!!",
+    "palavras_chave": "morte, penis, evento",
+    "area_tematica": "Biologia",
+    "arquivo_pdf": "\"C:\\Users\\SamuelAlvesMiranda\\Downloads\\HACKTON\\backend_json\\pintos.pdf\"",
+    "status": "avaliado",
+    "data_submissao": "2025-05-08 06:12:59.849330",
+    "notas": [
+        10.0,
+        10.0,
+        10.0,
+        5.0,
+        10.0
+    ],
+    "media": 9.0,
+    "parecer": "aprovado",
+    "recomendacao": "se mata",
+    "data_avaliacao": "2025-05-08 06:14:36.724506"
+}
