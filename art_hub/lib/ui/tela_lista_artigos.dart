@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart';
 import 'tela_avaliacao_artigo.dart';
 
 class TelaListaArtigos extends StatefulWidget {
@@ -9,6 +11,26 @@ class TelaListaArtigos extends StatefulWidget {
 }
 
 class _TelaListaArtigosState extends State<TelaListaArtigos> {
+  List<dynamic> artigos = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _carregarArtigos();
+  }
+
+  Future<void> _carregarArtigos() async {
+    try {
+      final String response =
+          await rootBundle.loadString('lib/conteudo/artigos.json');
+      setState(() {
+        artigos = json.decode(response);
+      });
+    } catch (e) {
+      print('Erro ao carregar artigos: $e');
+    }
+  }
+
   void _abrirAvaliacaoArtigo(String titulo) {
     Navigator.push(
       context,
@@ -39,26 +61,25 @@ class _TelaListaArtigosState extends State<TelaListaArtigos> {
           children: [
             Expanded(
               child: ListView.builder(
-                itemCount: 3,
+                itemCount: artigos.length,
                 itemBuilder: (context, index) {
+                  final artigo = artigos[index];
                   return GestureDetector(
-                    onTap: () =>
-                        _abrirAvaliacaoArtigo('Título do artigo ${index + 1}'),
+                    onTap: () => _abrirAvaliacaoArtigo(artigo['titulo']),
                     child: Card(
                       margin: const EdgeInsets.symmetric(vertical: 8),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      color: const Color.fromARGB(255, 255, 255, 255),
                       child: ListTile(
                         title: Text(
-                          'Título do artigo ${index + 1}',
+                          artigo['titulo'],
                           style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
-                        subtitle: const Text(
-                          'Nome do autor indisponível',
-                          style: TextStyle(fontSize: 14),
+                        subtitle: Text(
+                          artigo['autores'],
+                          style: const TextStyle(fontSize: 14),
                         ),
                       ),
                     ),
