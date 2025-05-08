@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:pdf_render/pdf_render_widgets.dart';
 import 'package:valides_app/ui/gemini.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class TelaAvaliacaoArtigo extends StatefulWidget {
   final String titulo;
 
-  const TelaAvaliacaoArtigo({super.key, this.titulo = 'Avaliação de Artigo'});
+  const TelaAvaliacaoArtigo({super.key, required this.titulo});
 
   @override
   State<TelaAvaliacaoArtigo> createState() => _TelaAvaliacaoArtigoState();
@@ -13,16 +14,16 @@ class TelaAvaliacaoArtigo extends StatefulWidget {
 
 class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
   List<Map<String, dynamic>> checklistPontos = [
-    {'ponto': 'Erros de escrita', 'peso': 2, 'checked': false},
-    {'ponto': 'Desvio do padrão ABNT', 'peso': 2, 'checked': false},
-    {'ponto': 'Falta de referências', 'peso': 3, 'checked': false},
+    {'ponto': 'Erros de escrita', 'peso': 0.2, 'checked': false},
+    {'ponto': 'Desvio do padrão ABNT', 'peso': 0.5, 'checked': false},
+    {'ponto': 'Falta de referências', 'peso': 0.2, 'checked': false},
   ];
 
   bool isPdfVisible = false;
-  String urlPDF =
-      '/Users/davispecia/Documents/hackathon-main/art_hub/assets/img/FATURA AGATA 1701 A 1802 (1).pdf';
 
   final TextEditingController observacaoController = TextEditingController();
+  final TextEditingController notaController = TextEditingController();
+
   String? geminiResponse;
 
   void _adicionarOuEditarPonto([int? index]) {
@@ -125,18 +126,13 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF1D3E5F),
         iconTheme: const IconThemeData(color: Colors.white),
-        title: Text(widget.titulo, style: const TextStyle(color: Colors.white)),
+        title:
+            const Text("Avaliar Artigo", style: TextStyle(color: Colors.white)),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () => _adicionarOuEditarPonto(),
-          ),
-        ],
       ),
       drawer: _buildDrawer(context),
       body: Padding(
@@ -145,17 +141,11 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Center(
-                child: Text('Avaliar Artigo',
-                    style:
-                        TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-              ),
-              const SizedBox(height: 16),
-              const Card(
-                margin: EdgeInsets.symmetric(vertical: 8),
+              Card(
+                margin: const EdgeInsets.symmetric(vertical: 8),
                 child: ListTile(
-                  title: Text('Título do artigo'),
-                  subtitle: Text('Nome do autor'),
+                  title: Text(widget.titulo),
+                  subtitle: const Text('Nome do autor indisponível'),
                 ),
               ),
               Card(
@@ -166,9 +156,20 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
                 ),
               ),
               if (isPdfVisible)
-                Expanded(
-                  child: SfPdfViewer.network(urlPDF),
-                ),
+                SizedBox(
+                    height: 1000,
+                    width: 1000,
+                    child: PdfViewer.openFutureFile(
+                      () async => (await DefaultCacheManager().getSingleFile(
+                              'https://github.com/HackathonBiopark/hackathon/blob/9f2a46d38794459fe949ebfbc49b86b772e46942/art_hub/assets/pdf/artigo1.pdf'))
+                          .path,
+                      onError: (err) => print(err),
+                      params: const PdfViewerParams(
+                        padding: 10,
+                        minScale: 1.0,
+                        // scrollDirection: Axis.horizontal,
+                      ),
+                    )),
               // OBSERVAÇÃO E GERAÇÃO DE SUGESTÕES
 
               Card(
@@ -204,17 +205,7 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
                         onPressed: () => _adicionarOuEditarPonto(),
                         child: const Text('Adicionar Novo Ponto'),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              Card(
-                margin: const EdgeInsets.symmetric(vertical: 8),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                      const SizedBox(height: 8),
                       const Text('Observação',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold)),
@@ -237,8 +228,35 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
                         const Text('Resposta do Gemini:',
                             style: TextStyle(fontWeight: FontWeight.bold)),
                         const SizedBox(height: 4),
-                        Text(geminiResponse!),
+                        SelectableText(
+                          geminiResponse!,
+                          style: const TextStyle(fontSize: 16),
+                        ),
                       ],
+                    ],
+                  ),
+                ),
+              ),
+              const Card(
+                margin: EdgeInsets.symmetric(vertical: 8),
+                child: Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Devolutiva Final',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 8),
+                      TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Digite a devolutiva final',
+                        ),
+                        maxLines: 5,
+                      ),
                     ],
                   ),
                 ),
@@ -246,11 +264,71 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
               Card(
                 margin: const EdgeInsets.symmetric(vertical: 8),
                 child: ListTile(
-                  title: const Text('Nota:'),
+                  title: Text(
+                    'Nota: ${notaController.text}',
+                    style: const TextStyle(fontSize: 16),
+                  ),
                   trailing: const Icon(Icons.edit, color: Colors.grey),
                   onTap: () {
-                    // Ação para editar nota
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        final TextEditingController novaNotaController =
+                            TextEditingController(text: notaController.text);
+                        return AlertDialog(
+                          title: const Text('Editar Nota'),
+                          content: TextField(
+                            controller: novaNotaController,
+                            decoration: const InputDecoration(
+                              labelText: 'Digite a nova nota',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text('Cancelar'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  notaController.text = novaNotaController.text;
+                                });
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Salvar'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
+                ),
+              ),
+
+              SizedBox(
+                height: 8,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF1D3E5F),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  textStyle: const TextStyle(fontSize: 16),
+                ),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.save, size: 20),
+                    SizedBox(width: 8),
+                    Text(
+                      'Salvar',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
                 ),
               ),
             ],
