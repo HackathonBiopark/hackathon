@@ -1,42 +1,80 @@
+import 'package:alugaix_app/ui/tela_adicao_evento.dart';
 import 'package:flutter/material.dart';
 
-class TelaHomeEventos extends StatelessWidget {
+class TelaHomeEventos extends StatefulWidget {
+  const TelaHomeEventos({super.key});
+
+  @override
+  State<TelaHomeEventos> createState() => _TelaHomeEventosState();
+}
+
+class _TelaHomeEventosState extends State<TelaHomeEventos> {
   final List<Map<String, String>> eventos = [
     {
       'titulo': 'Conferência Data Minds 2025',
-      'banner': 'assets/img/fotoTecnologia.jpg',
+      'banner': 'assets/img/fotoTecnologia.jpg'
     },
     {
       'titulo': 'Feira de Tecnologia IFPR',
-      'banner': 'assets/img/fotoTecnologia.jpg',
+      'banner': 'assets/img/fotoTecnologia.jpg'
     },
-    {
-      'titulo': 'Semana Acadêmica',
-      'banner': 'assets/img/fotoTecnologia.jpg',
-    },
-    {
-      'titulo': 'Workshop de IA',
-      'banner': 'assets/img/fotoTecnologia.jpg',
-    },
-    {
-      'titulo': 'Mostra de Projetos',
-      'banner': 'assets/img/fotoTecnologia.jpg',
-    },
-    {
-      'titulo': 'Hackathon IFPR',
-      'banner': 'assets/img/fotoTecnologia.jpg',
-    },
+    {'titulo': 'Semana Acadêmica', 'banner': 'assets/img/fotoTecnologia.jpg'},
+    {'titulo': 'Workshop de IA', 'banner': 'assets/img/fotoTecnologia.jpg'},
+    {'titulo': 'Mostra de Projetos', 'banner': 'assets/img/fotoTecnologia.jpg'},
+    {'titulo': 'Hackathon IFPR', 'banner': 'assets/img/fotoTecnologia.jpg'},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
         backgroundColor: const Color(0xFF1D3E5F),
-        title: const Text('Eventos da Instituição',
-            style: TextStyle(color: Colors.white)),
+        iconTheme:
+            const IconThemeData(color: Colors.white), // Força a cor dos ícones
+        title: const Text(
+          'Eventos da Instituição',
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
+      ),
+      drawer: Drawer(
+        backgroundColor: const Color(0xFF1D3E5F),
+        child: ListView(
+          children: [
+            const SizedBox(height: 40),
+            ListTile(
+              leading: const Icon(Icons.add, color: Colors.white),
+              title: const Text('Novo evento',
+                  style: TextStyle(color: Colors.white)),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const TelaAdicaoEvento()),
+                );
+              },
+            ),
+            const Divider(
+                color: Colors.white30, thickness: 1, indent: 16, endIndent: 16),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+              child: Text(
+                'Eventos recentes',
+                style: TextStyle(
+                    color: Colors.white70, fontWeight: FontWeight.bold),
+              ),
+            ),
+            const ListTile(
+              dense: true,
+              title: Text(
+                'Conferência Data Minds 2025',
+                style: TextStyle(color: Colors.white, fontSize: 13),
+              ),
+              leading: Icon(Icons.event_note, color: Colors.white70, size: 20),
+              contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
+            ),
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),

@@ -1,15 +1,14 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
-class TelaOrganizacaoEvento extends StatefulWidget {
-  const TelaOrganizacaoEvento({super.key});
+class TelaAdicaoEvento extends StatefulWidget {
+  const TelaAdicaoEvento({super.key});
 
   @override
-  State<TelaOrganizacaoEvento> createState() => _TelaOrganizacaoEventoState();
+  State<TelaAdicaoEvento> createState() => _TelaOrganizacaoEventoState();
 }
 
-class _TelaOrganizacaoEventoState extends State<TelaOrganizacaoEvento> {
-  bool sidebarAberta = false;
+class _TelaOrganizacaoEventoState extends State<TelaAdicaoEvento> {
   String? bannerFileName;
 
   void _pickBannerFile() async {
@@ -29,58 +28,51 @@ class _TelaOrganizacaoEventoState extends State<TelaOrganizacaoEvento> {
         title: const Text('Organização', style: TextStyle(color: Colors.white)),
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(sidebarAberta ? Icons.arrow_back : Icons.menu,
-              color: Colors.white),
+          icon: const Icon(Icons.menu),
+          color: const Color.fromARGB(
+              255, 255, 255, 255), // Cor do ícone de hambúrguer
           onPressed: () {
-            setState(() {
-              sidebarAberta = !sidebarAberta;
-            });
+            Scaffold.of(context).openDrawer();
           },
+        ),
+      ),
+      drawer: Drawer(
+        backgroundColor: const Color(0xFF1D3E5F),
+        child: ListView(
+          children: [
+            const SizedBox(height: 40),
+            ListTile(
+              leading: const Icon(Icons.add, color: Colors.white),
+              title: const Text('Novo evento',
+                  style: TextStyle(color: Colors.white)),
+              onTap: () {
+                // Adicione navegação para a criação de eventos
+              },
+            ),
+            const Divider(
+                color: Colors.white30, thickness: 1, indent: 16, endIndent: 16),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+              child: Text(
+                'Eventos recentes',
+                style: TextStyle(
+                    color: Colors.white70, fontWeight: FontWeight.bold),
+              ),
+            ),
+            const ListTile(
+              dense: true,
+              title: Text(
+                'Conferência Data Minds 2025',
+                style: TextStyle(color: Colors.white, fontSize: 13),
+              ),
+              leading: Icon(Icons.event_note, color: Colors.white70, size: 20),
+              contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
+            ),
+          ],
         ),
       ),
       body: Row(
         children: [
-          if (sidebarAberta)
-            Container(
-              width: 220,
-              color: const Color(0xFF1D3E5F),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 40),
-                  ListTile(
-                    leading: const Icon(Icons.add, color: Colors.white),
-                    title: const Text('Novo evento',
-                        style: TextStyle(color: Colors.white)),
-                    onTap: () {},
-                  ),
-                  const Divider(
-                      color: Colors.white30,
-                      thickness: 1,
-                      indent: 16,
-                      endIndent: 16),
-                  const Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-                    child: Text(
-                      'Eventos recentes',
-                      style: TextStyle(
-                          color: Colors.white70, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const ListTile(
-                    dense: true,
-                    title: Text(
-                      'Conferência Data Minds 2025',
-                      style: TextStyle(color: Colors.white, fontSize: 13),
-                    ),
-                    leading:
-                        Icon(Icons.event_note, color: Colors.white70, size: 20),
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
-                  ),
-                ],
-              ),
-            ),
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
