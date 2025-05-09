@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:valides_app/ui/eventos_submissoes.dart';
-import 'package:valides_app/ui/tela_anais_evento.dart';
-import 'package:valides_app/ui/tela_eventos_instituicao.dart';
-import 'package:valides_app/ui/tela_login.dart';
+import 'package:valides_app/ui/navegacao/avaliador/dashboard_avaliadores.dart';
+import 'package:valides_app/ui/navegacao/coordenacao/tela_adicao_evento.dart';
+import 'package:valides_app/ui/navegacao/geral/tela_anais_evento.dart';
+import 'package:valides_app/ui/navegacao/coordenacao/tela_evento_coordenador.dart';
+import 'package:valides_app/ui/inicio/tela_login.dart';
 
-class TelaHomeAutor extends StatefulWidget {
-  const TelaHomeAutor({super.key});
+class TelaHomeAdministrador extends StatefulWidget {
+  const TelaHomeAdministrador({super.key});
 
   @override
-  State<TelaHomeAutor> createState() => _TelaHomeAutorState();
+  State<TelaHomeAdministrador> createState() => _TelaHomeAdministradorState();
 }
 
-class _TelaHomeAutorState extends State<TelaHomeAutor> {
+class _TelaHomeAdministradorState extends State<TelaHomeAdministrador> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +20,7 @@ class _TelaHomeAutorState extends State<TelaHomeAutor> {
         backgroundColor: const Color(0xFF1D3E5F),
         iconTheme: const IconThemeData(color: Colors.white),
         title: const Text(
-          'Painel do autor',
+          'Eventos da Instituição',
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -32,12 +33,15 @@ class _TelaHomeAutorState extends State<TelaHomeAutor> {
             Expanded(
               child: _buildCardEvento(
                 imagem: '../assets/img/imagem_aberta.jpg',
-                titulo: 'Eventos disponíveis para submissão',
+                titulo: 'Inscrições abertas',
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const TelaEnvioEvento(),
+                      builder: (context) => const TelaEventoCoordenador(
+                        titulo: 'Inscrições abertas',
+                        banner: '../assets/img/fotoTecnologia2.jpg',
+                      ),
                     ),
                   );
                 },
@@ -46,13 +50,13 @@ class _TelaHomeAutorState extends State<TelaHomeAutor> {
             const SizedBox(width: 20),
             Expanded(
               child: _buildCardEvento(
-                imagem: '../assets/img/submissoes.jpg',
-                titulo: 'Minhas submissões',
+                imagem: '../assets/img/dash.jpeg',
+                titulo: 'Dashbord dos avaliadores',
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const TelaHomeEventos(),
+                      builder: (context) => const DashboardSobrecarga(),
                     ),
                   );
                 },
@@ -69,7 +73,7 @@ class _TelaHomeAutorState extends State<TelaHomeAutor> {
                     MaterialPageRoute(
                       builder: (context) => const TelaAnaisEventos(
                         titulo: 'Anais de evento',
-                        banner: "../assets/img/fotoTecnologia.jpg",
+                        banner: "../assets/img/fotoTecnologia2.jpg",
                       ),
                     ),
                   );
@@ -136,6 +140,18 @@ class _TelaHomeAutorState extends State<TelaHomeAutor> {
             title: const Text('Home', style: TextStyle(color: Colors.white)),
             onTap: () {
               Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.add, color: Colors.white),
+            title: const Text('Novo evento',
+                style: TextStyle(color: Colors.white)),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const TelaAdicaoEvento()),
+              );
             },
           ),
           ListTile(

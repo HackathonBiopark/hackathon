@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:valides_app/ui/tela_anais_evento.dart';
-import 'package:valides_app/ui/tela_lista_artigos.dart';
-import 'package:valides_app/ui/tela_login.dart';
+import 'package:valides_app/ui/navegacao/geral/tela_anais_evento.dart';
+import 'package:valides_app/ui/navegacao/avaliador/tela_lista_artigos.dart';
+import 'package:valides_app/ui/inicio/tela_login.dart';
 
 class TelaHomeAvaliador extends StatefulWidget {
   const TelaHomeAvaliador({super.key});

@@ -1,8 +1,8 @@
-import 'package:valides_app/ui/tela_home_administrador.dart';
-import 'package:valides_app/ui/tela_home_autor.dart';
-import 'package:valides_app/ui/tela_home_avaliador.dart';
+import 'package:valides_app/ui/navegacao/coordenacao/tela_home_administrador.dart';
+import 'package:valides_app/ui/navegacao/autor/tela_home_autor.dart';
+import 'package:valides_app/ui/navegacao/avaliador/tela_home_avaliador.dart';
 import 'package:flutter/material.dart';
-import '../utils/user_preferences.dart';
+import 'package:valides_app/utils/user_preferences.dart';
 
 void main() {
   runApp(const TelaLogin());

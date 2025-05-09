@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class TelaArtigoCoordenador extends StatefulWidget {
   final Map<String, dynamic> artigo;
@@ -20,7 +19,6 @@ class _TelaArtigoCoordenadorState extends State<TelaArtigoCoordenador> {
   List<dynamic> avaliadoresSelecionados = [];
   Map<String, dynamic> artigoDetalhado = {}; // Adicione esta linha
   String localPath = '';
-  final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
 
   Future<void> _carregarArtigo(String titulo) async {
     final String response =

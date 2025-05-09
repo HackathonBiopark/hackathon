@@ -61,20 +61,19 @@ class _TelaListaArtigosState extends State<TelaListaArtigos> {
           children: [
             Expanded(
               child: ListView.builder(
-                itemCount: 3,
+                itemCount: artigos.length,
                 itemBuilder: (context, index) {
+                  final artigo = artigos[index];
                   return GestureDetector(
-                    onTap: () =>
-                        _abrirAvaliacaoArtigo('Título do artigo ${index + 1}'),
+                    onTap: () => _abrirAvaliacaoArtigo(artigo['titulo']),
                     child: Card(
                       margin: const EdgeInsets.symmetric(vertical: 8),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      color: const Color.fromARGB(255, 255, 255, 255),
                       child: ListTile(
                         title: Text(
-                          'Título do artigo ${index + 1}',
+                          artigo['titulo'],
                           style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),

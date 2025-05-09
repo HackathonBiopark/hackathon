@@ -40,12 +40,6 @@ class _TelaEventosState extends State<TelaAnaisEventos> {
   String _searchTerm = '';
   String _selectedFilter = 'Todos';
 
-  void _atualizarStatus(int index, String status) {
-    setState(() {
-      statusArtigos[index] = status;
-    });
-  }
-
   List<Map<String, dynamic>> get filteredEventos {
     if (_searchTerm.isEmpty) return eventos;
 

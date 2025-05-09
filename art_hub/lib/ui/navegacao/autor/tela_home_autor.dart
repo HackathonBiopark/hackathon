@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:valides_app/ui/tela_adicao_evento.dart' show TelaAdicaoEvento;
-import 'package:valides_app/ui/tela_anais_evento.dart';
-import 'package:valides_app/ui/tela_evento_coordenador.dart';
-import 'package:valides_app/ui/tela_eventos_instituicao.dart';
-import 'package:valides_app/ui/tela_login.dart';
+import 'package:valides_app/ui/navegacao/autor/eventos_submissoes.dart';
+import 'package:valides_app/ui/navegacao/geral/tela_anais_evento.dart';
+import 'package:valides_app/ui/navegacao/geral/tela_eventos_instituicao.dart';
+import 'package:valides_app/ui/inicio/tela_login.dart';
 
-class TelaHomeAdministrador extends StatefulWidget {
-  const TelaHomeAdministrador({super.key});
+class TelaHomeAutor extends StatefulWidget {
+  const TelaHomeAutor({super.key});
 
   @override
-  State<TelaHomeAdministrador> createState() => _TelaHomeAdministradorState();
+  State<TelaHomeAutor> createState() => _TelaHomeAutorState();
 }
 
-class _TelaHomeAdministradorState extends State<TelaHomeAdministrador> {
+class _TelaHomeAutorState extends State<TelaHomeAutor> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +19,7 @@ class _TelaHomeAdministradorState extends State<TelaHomeAdministrador> {
         backgroundColor: const Color(0xFF1D3E5F),
         iconTheme: const IconThemeData(color: Colors.white),
         title: const Text(
-          'Eventos da Instituição',
+          'Painel do autor',
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -33,15 +32,27 @@ class _TelaHomeAdministradorState extends State<TelaHomeAdministrador> {
             Expanded(
               child: _buildCardEvento(
                 imagem: '../assets/img/imagem_aberta.jpg',
-                titulo: 'Inscrições abertas',
+                titulo: 'Eventos disponíveis para submissão',
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const TelaEventoCoordenador(
-                        titulo: '',
-                        banner: '../assets/img/fotoTecnologia2.jpg',
-                      ),
+                      builder: (context) => const TelaEnvioEvento(),
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(width: 20),
+            Expanded(
+              child: _buildCardEvento(
+                imagem: '../assets/img/submissoes.jpg',
+                titulo: 'Minhas submissões',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TelaHomeEventos(),
                     ),
                   );
                 },
@@ -58,7 +69,7 @@ class _TelaHomeAdministradorState extends State<TelaHomeAdministrador> {
                     MaterialPageRoute(
                       builder: (context) => const TelaAnaisEventos(
                         titulo: 'Anais de evento',
-                        banner: "../assets/img/fotoTecnologia2.jpg",
+                        banner: "../assets/img/fotoTecnologia.jpg",
                       ),
                     ),
                   );
@@ -125,18 +136,6 @@ class _TelaHomeAdministradorState extends State<TelaHomeAdministrador> {
             title: const Text('Home', style: TextStyle(color: Colors.white)),
             onTap: () {
               Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.add, color: Colors.white),
-            title: const Text('Novo evento',
-                style: TextStyle(color: Colors.white)),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const TelaAdicaoEvento()),
-              );
             },
           ),
           ListTile(

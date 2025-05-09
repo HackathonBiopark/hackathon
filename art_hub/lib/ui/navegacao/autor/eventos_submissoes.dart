@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:valides_app/ui/tela_submissao_autor.dart';
+import 'package:valides_app/ui/navegacao/autor/tela_submissao_autor.dart';
 
 class TelaEnvioEvento extends StatefulWidget {
   const TelaEnvioEvento({super.key});

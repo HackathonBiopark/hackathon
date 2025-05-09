@@ -1,4 +1,4 @@
-import 'package:valides_app/ui/tela_artigo_coordenador.dart';
+import 'package:valides_app/ui/navegacao/coordenacao/tela_artigo_coordenador.dart';
 import 'package:flutter/material.dart';
 
 class TelaEventoCoordenador extends StatefulWidget {

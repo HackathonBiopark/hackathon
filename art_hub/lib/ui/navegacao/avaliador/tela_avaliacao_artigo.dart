@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:valides_app/ui/gemini.dart';
+import 'package:valides_app/service/gemini.dart';
 
 class TelaAvaliacaoArtigo extends StatefulWidget {
   final String titulo;
@@ -18,9 +18,8 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
   ];
 
   bool isPdfVisible = false;
-  String urlPDF =
-      '/Users/davispecia/Documents/hackathon-main/art_hub/assets/img/FATURA AGATA 1701 A 1802 (1).pdf';
 
+  final TextEditingController notaController = TextEditingController();
   final TextEditingController observacaoController = TextEditingController();
   String? geminiResponse;
 
@@ -138,17 +137,7 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
                         onPressed: () => _adicionarOuEditarPonto(),
                         child: const Text('Adicionar Novo Ponto'),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              Card(
-                margin: const EdgeInsets.symmetric(vertical: 8),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                      const SizedBox(height: 8),
                       const Text('Observação',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold)),
@@ -171,8 +160,35 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
                         const Text('Resposta do Gemini:',
                             style: TextStyle(fontWeight: FontWeight.bold)),
                         const SizedBox(height: 4),
-                        Text(geminiResponse!),
+                        SelectableText(
+                          geminiResponse!,
+                          style: const TextStyle(fontSize: 16),
+                        ),
                       ],
+                    ],
+                  ),
+                ),
+              ),
+              const Card(
+                margin: EdgeInsets.symmetric(vertical: 8),
+                child: Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Devolutiva Final',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 8),
+                      TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Digite a devolutiva final',
+                        ),
+                        maxLines: 5,
+                      ),
                     ],
                   ),
                 ),
@@ -180,10 +196,44 @@ class _TelaAvaliacaoArtigoState extends State<TelaAvaliacaoArtigo> {
               Card(
                 margin: const EdgeInsets.symmetric(vertical: 8),
                 child: ListTile(
-                  title: const Text('Nota:'),
+                  title: Text(
+                    'Nota: ${notaController.text}',
+                    style: const TextStyle(fontSize: 16),
+                  ),
                   trailing: const Icon(Icons.edit, color: Colors.grey),
                   onTap: () {
-                    // Ação para editar nota
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        final TextEditingController novaNotaController =
+                            TextEditingController(text: notaController.text);
+                        return AlertDialog(
+                          title: const Text('Editar Nota'),
+                          content: TextField(
+                            controller: novaNotaController,
+                            decoration: const InputDecoration(
+                              labelText: 'Digite a nova nota',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text('Cancelar'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  notaController.text = novaNotaController.text;
+                                });
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Salvar'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                 ),
               ),
